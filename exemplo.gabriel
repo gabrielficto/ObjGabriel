@@ -2,5 +2,9 @@ import iostream
 
 act main() -> bi32 {
   //num: bi32 = 0;
+  std::string name;
+  cry << "Hello world!";
+  cry << "Insert your name: ";
+  get >> name;
   getout 0;
 }
