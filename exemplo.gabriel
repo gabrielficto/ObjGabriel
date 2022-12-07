@@ -1,0 +1,6 @@
+import iostream
+
+act main() -> bi32 {
+  //num: bi32 = 0;
+  getout 0;
+}
