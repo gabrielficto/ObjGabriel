@@ -254,7 +254,7 @@ string tokenizer(string statement)
         return translateTypesToC(var.type) + " " + var.identifier + " = " + var.value;
     }
 
-    if (gabriel.checkIfIsFunctionDeclaration(statement) || gabriel.checkIfIsFunctionWithParams(statement))
+    if (gabriel.checkIfIsFunctionDeclaration(statement))
     {
         isFunction = true;
 
@@ -271,6 +271,10 @@ string tokenizer(string statement)
                 break;
             }
         }
+    }
+
+    if(gabriel.checkIfIsFunctionWithParams(statement)){
+        cout << "função com argumentos"
     }
 
     if (gabriel.isIncludeStatement(statement))
