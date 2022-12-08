@@ -1,17 +1,19 @@
 import fictogem
+import gabriel
 
 act sumTwoNumbers( num1 : bi32 num2 : bi32 ) -> ficto {
-
+  cry << num1 + num2;
 }
 
 act greetUser() -> ficto {
   cry << "Hello world!";
+  sumTwoNumbers(16, 16);
 }
 
 act main() -> bi32 {
   num : bi32 = 2;
   num2 : bi32 = 2;
   greetUser();
-  cry << "O resultado é: " << num + num2;
+  Gabriel::print("Hello");
   getout 0;
 }

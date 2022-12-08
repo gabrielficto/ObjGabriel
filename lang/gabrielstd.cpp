@@ -1,12 +1,6 @@
-// Esse é um arquivo com a implementação das funções nativas do ObjGabriel
-
-static class Gabriel {
+class Gabriel {
     public:
-        void in(string arg){
-            cout << ""
-        }
-
-        void out(){
-            cin 
+        static void print(string arg){
+            cout << arg;
         }
 };

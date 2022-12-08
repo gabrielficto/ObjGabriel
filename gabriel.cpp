@@ -34,7 +34,7 @@ struct
     const string SCANF = "std::cin";
     const string INCLUDE = "#include";
     const string IMPORT = "import";
-    const string FICTOGEM = "fictoblame";
+    const string FICTOGEM = "fictogem";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -136,6 +136,35 @@ string importFictoGem(){
     return "#include <string>\n#include <iostream>\nusing namespace std;\n";
 }
 
+string importGabrielSTDLibrary(){
+    fstream file;
+    file.open("./lang/gabrielstd.cpp", ios::in);
+
+    string lib_code[100];
+    int len = 0;
+
+    if (file)
+    {
+        int line = 0;
+
+        while (!file.eof() && getline(file, lib_code[line]))
+        {
+            line++;
+            len++;
+        }
+    } else {
+        cout << "ObjGabriel was unable to find the specified library!";
+    }
+
+    string joined;
+
+    for(int i = 0; i < len; i++){
+        joined += lib_code[i] + "\n";
+    }
+
+    return joined;
+}
+
 void parse();
 string tokenizer(string);
 string parseLine(string);
@@ -213,6 +242,10 @@ string tokenizer(string statement)
 
     if(statement == "import fictogem"){
         return importFictoGem();
+    }
+
+    if(statement == "import gabriel"){
+        return importGabrielSTDLibrary();
     }
 
     int i = 0;
