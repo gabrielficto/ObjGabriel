@@ -1,5 +1,6 @@
-#include <string>
 #include <iostream>
+#include <string>
+
 using namespace std;
 
 class Gabriel {
@@ -9,18 +10,7 @@ class Gabriel {
         }
 };
 
-void sumTwoNumbers( int num1, int num2 ) { 
-std::cout << num1 + num2; 
-} 
-void greetUser() { 
-std::cout << "Hello world!"; 
-sumTwoNumbers(16, 16); 
-} 
 int main() { 
-int num = 2;
-int num2 = 2;
-greetUser(); 
-std::cout << "O resultado é: " << num + num2; 
-Gabriel::print("Hello"); 
+Gabriel::print("Hello zworld!"); 
 return 0; 
 } 

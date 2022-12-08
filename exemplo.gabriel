@@ -1,4 +1,3 @@
-import fictogem
 import gabriel
 
 act sumTwoNumbers( num1 : bi32 num2 : bi32 ) -> ficto {
