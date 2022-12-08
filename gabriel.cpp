@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ struct
     const regex INCLUDE_STATEMENT = regex("import .*");
     const regex PRINT_STATEMENT = regex("cry << .*;");
     const regex SCANF_STATEMENT = regex("get >> .*;");
+    const regex VAR_DECL_STATEMENT = regex(".* \\: .* \\= .*", std::regex_constants::basic);
 } GabrielRules;
 
 struct
@@ -31,10 +33,38 @@ struct
     const string INCLUDE = "#include";
 } GabrielKeywords;
 
-typedef struct GabrielFunction
+typedef struct GabrielFunctions
 {
     string return_type;
 } Function;
+
+typedef struct GabrielVariable
+{
+    string identifier;
+    string type;
+} Variable;
+
+map<string, string> GabrielTypes;
+
+void initializeGabrielTypes()
+{
+    GabrielTypes.insert(pair<string, string>("bi32", "int"));
+    GabrielTypes.insert(pair<string, string>("bi64", "float"));
+    GabrielTypes.insert(pair<string, string>("bi", "boolean"));
+    GabrielTypes.insert(pair<string, string>("label", "string"));
+    GabrielTypes.insert(pair<string, string>("ficto", "void"));
+}
+
+string translateTypesToC(string _type)
+{
+    for (auto _ : GabrielTypes)
+    {
+        if (_.first == _type)
+            return _.second;
+    }
+
+    return "unknown";
+}
 
 class GabrielLang
 {
@@ -71,12 +101,17 @@ public:
         return regex_search(statement, match, GabrielRules.SCANF_STATEMENT);
     }
 
+    bool isVariableDecl(string statement)
+    {
+        return regex_search(statement, match, GabrielRules.VAR_DECL_STATEMENT);
+    }
+
     void exec()
     {
-        #ifdef _WIN32
-            system("g++ -g output.cpp -o program.exe");
-            system("./program.exe");
-        #endif
+#ifdef _WIN32
+        system("g++ -g output.cpp -o program.exe");
+        system("./program.exe");
+#endif
 
         system("g++ -g program.cpp -o program");
         system("./program");
@@ -120,12 +155,14 @@ void parse()
         line++;
     }
 
-    //for (int i = 0; i < file_len; i++)
-        //cout << output[i] << endl;
+    // for (int i = 0; i < file_len; i++)
+    // cout << output[i] << endl;
 }
 
 int main(int argc, char *argv[])
 {
+    initializeGabrielTypes();
+
     input = argv[1];
     readFromFile(input);
     return 0;
@@ -148,6 +185,7 @@ string tokenizer(string statement)
     string function_statement;
     bool isFunction = false;
     Function func;
+    Variable var;
 
     GabrielLang gabriel;
 
@@ -171,6 +209,14 @@ string tokenizer(string statement)
         tokens[0] = GabrielKeywords.SCANF;
     }
 
+    if (gabriel.isVariableDecl(statement))
+    {
+        var.identifier = tokens[0];
+        var.type = tokens[2];
+
+        return translateTypesToC(var.type) + " " + var.identifier + " = " + tokens[4];
+    }
+
     if (gabriel.checkIfIsFunctionDeclaration(statement))
     {
         isFunction = true;
@@ -183,14 +229,11 @@ string tokenizer(string statement)
 
             if (tokens[token] == "->")
             {
-                if (tokens[token + 1] == "bi32")
-                {
-                    func.return_type = "int";
-                    tokens[token] = "";
-                    tokens[token + 1] = "";
-                    break;
-                }
-                throw "⚠️ Return type is missing, but required in ObjGabriel...";
+
+                func.return_type = translateTypesToC(tokens[token + 1]);
+                tokens[token] = "";
+                tokens[token + 1] = "";
+                break;
             }
         }
     }
@@ -233,7 +276,7 @@ void compileToCpp()
     GabrielLang gabriel;
 
     fstream file;
-    file.open("output.cpp", ios::out);
+    file.open("program.cpp", ios::out);
 
     for (int i = 0; i < 1000; i++)
     {

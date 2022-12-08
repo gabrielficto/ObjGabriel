@@ -1,10 +1,16 @@
 import iostream
+import string
+
+using namespace std;
+
+act greetUser() -> ficto {
+  cry << "Hello world!";
+}
 
 act main() -> bi32 {
-  //num: bi32 = 0;
-  std::string name;
-  cry << "Hello world!";
-  cry << "Insert your name: ";
-  get >> name;
+  num : bi32 = 2;
+  num2 : bi32 = 2;
+  greetUser();
+  cry << "O resultado é: " << num + num2;
   getout 0;
 }
