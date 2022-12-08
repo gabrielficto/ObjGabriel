@@ -1,7 +1,7 @@
 import fictogem
 
-act sumTwoNumbers(num1 : bi32, num2 : bi32) -> bi32 {
-  
+act sumTwoNumbers( num1 : bi32 num2 : bi32 ) -> ficto {
+
 }
 
 act greetUser() -> ficto {

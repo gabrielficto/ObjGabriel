@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-int sumTwoNumbers(num1 : bi32, num2 : bi32) { 
+void sumTwoNumbers( int num1, int num2 ) { 
 } 
 void greetUser() { 
 std::cout << "Hello world!"; 

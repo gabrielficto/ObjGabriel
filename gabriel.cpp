@@ -51,7 +51,7 @@ typedef struct GabrielVariable
 
 typedef struct GabrielFunctionWithParams {
     string identifier;
-    string args;
+    string type;
 } FunctionWithArgs;
 
 map<string, string> GabrielTypes;
@@ -263,6 +263,15 @@ string tokenizer(string statement)
             if (tokens[token] == GabrielKeywords.FUNCTION)
                 tokens[token] = "";
 
+            if(tokens[token] != "" && tokens[token + 1] == ":" && tokens[token] != ""){
+                funarg.identifier = tokens[token];
+                funarg.type = tokens[token + 2];
+                tokens[token + 1] = ""; 
+                tokens[token] = translateTypesToC(funarg.type);
+                tokens[token + 2] = tokens[token + 3] != ")" ? funarg.identifier + ",": funarg.identifier;
+                continue;
+            }
+
             if (tokens[token] == "->")
             {
                 func.return_type = translateTypesToC(tokens[token + 1]);
@@ -271,10 +280,6 @@ string tokenizer(string statement)
                 break;
             }
         }
-    }
-
-    if(gabriel.checkIfIsFunctionWithParams(statement)){
-        cout << "função com argumentos"
     }
 
     if (gabriel.isIncludeStatement(statement))
