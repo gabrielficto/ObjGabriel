@@ -1,6 +1,9 @@
-#include  <iostream> 
-#include  <string> 
-using namespace std; 
+#include <string>
+#include <iostream>
+using namespace std;
+
+int sumTwoNumbers(num1 : bi32, num2 : bi32) { 
+} 
 void greetUser() { 
 std::cout << "Hello world!"; 
 } 

@@ -1,7 +1,8 @@
-import iostream
-import string
+import fictogem
 
-using namespace std;
+act sumTwoNumbers(num1 : bi32, num2 : bi32) -> bi32 {
+  
+}
 
 act greetUser() -> ficto {
   cry << "Hello world!";

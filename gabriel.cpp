@@ -18,6 +18,8 @@ struct
     const regex LINE_COMMENT = regex("\/\/(.*)");
     const regex FUNCTION_STATEMENT =
         regex("act .*\\(\\) -> .* {", std::regex_constants::basic);
+    const regex FUNCTION_WITH_PARAMS_STATEMENT =
+        regex(".*\\(.{1,}\\) {", std::regex_constants::basic);
     const regex RETURN_STATEMENT = regex("getout .*");
     const regex INCLUDE_STATEMENT = regex("import .*");
     const regex PRINT_STATEMENT = regex("cry << .*;");
@@ -31,6 +33,8 @@ struct
     const string PRINT = "std::cout";
     const string SCANF = "std::cin";
     const string INCLUDE = "#include";
+    const string IMPORT = "import";
+    const string FICTOGEM = "fictoblame";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -42,7 +46,13 @@ typedef struct GabrielVariable
 {
     string identifier;
     string type;
+    string value;
 } Variable;
+
+typedef struct GabrielFunctionWithParams {
+    string identifier;
+    string args;
+} FunctionWithArgs;
 
 map<string, string> GabrielTypes;
 
@@ -86,6 +96,10 @@ public:
         return regex_search(statement, match, GabrielRules.FUNCTION_STATEMENT);
     }
 
+    bool checkIfIsFunctionWithParams(string statement){
+        return regex_search(statement, match, GabrielRules.FUNCTION_WITH_PARAMS_STATEMENT);
+    }
+
     bool isIncludeStatement(string statement)
     {
         return regex_search(statement, match, GabrielRules.INCLUDE_STATEMENT);
@@ -108,15 +122,19 @@ public:
 
     void exec()
     {
-#ifdef _WIN32
-        system("g++ -g output.cpp -o program.exe");
-        system("./program.exe");
-#endif
+        #ifdef _WIN32
+                system("g++ -g output.cpp -o program.exe");
+                system("./program.exe");
+        #endif
 
         system("g++ -g program.cpp -o program");
         system("./program");
     }
 };
+
+string importFictoGem(){
+    return "#include <string>\n#include <iostream>\nusing namespace std;\n";
+}
 
 void parse();
 string tokenizer(string);
@@ -145,7 +163,7 @@ void readFromFile(string filename)
 
 void parse()
 {
-    cout << "⚙️ Compilando ObjGabriel pra C++..." << endl;
+    cout << "🛠️ Compilando ObjGabriel pra C++..." << endl;
 
     int line = 0;
 
@@ -186,10 +204,16 @@ string tokenizer(string statement)
     bool isFunction = false;
     Function func;
     Variable var;
+    FunctionWithArgs funarg;
+    string joined;
 
     GabrielLang gabriel;
 
     stringstream ssin(statement);
+
+    if(statement == "import fictogem"){
+        return importFictoGem();
+    }
 
     int i = 0;
 
@@ -214,22 +238,33 @@ string tokenizer(string statement)
         var.identifier = tokens[0];
         var.type = tokens[2];
 
-        return translateTypesToC(var.type) + " " + var.identifier + " = " + tokens[4];
+        /*
+            Tokens:
+            identifier - 0
+            : - 1
+            type - 2
+            assign (=) - 3
+            value - 4+
+        */
+
+        for(int token = 4; token < 50; token++){
+            var.value += tokens[token];
+        }
+
+        return translateTypesToC(var.type) + " " + var.identifier + " = " + var.value;
     }
 
-    if (gabriel.checkIfIsFunctionDeclaration(statement))
+    if (gabriel.checkIfIsFunctionDeclaration(statement) || gabriel.checkIfIsFunctionWithParams(statement))
     {
         isFunction = true;
 
         for (int token = 0; token < 50; token++)
         {
-
             if (tokens[token] == GabrielKeywords.FUNCTION)
                 tokens[token] = "";
 
             if (tokens[token] == "->")
             {
-
                 func.return_type = translateTypesToC(tokens[token + 1]);
                 tokens[token] = "";
                 tokens[token + 1] = "";
