@@ -13,6 +13,4 @@ act main() -> bi32 {
         Gabriel::print("O número que vocẽ digitou é maior que 5");
 
     cry << "Número aleatório: " << Andrew::randomBi(1, 1000);
-
-    Andrew::initializeRainbow(480, 800);
 }
