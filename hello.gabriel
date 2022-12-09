@@ -1,0 +1,7 @@
+import fictogem
+import gabriel
+
+act main() -> bi32 {
+    Gabriel::print("Hello world!");
+    return 0;
+}

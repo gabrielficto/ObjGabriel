@@ -127,7 +127,7 @@ public:
                 system("./program.exe");
         #endif
 
-        system("g++ -g program.cpp -o program");
+        system("g++ -g program.cpp $(pkg-config --cflags --libs x11) -o program");
         system("./program");
     }
 };
@@ -335,6 +335,9 @@ string tokenizer(string statement)
             {
                 tokens[i] = "return";
             }
+
+        if (tokens[i] == "elf")
+            tokens[i] = "else if";
 
         if (tokens[i] != "")
         {
