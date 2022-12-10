@@ -13,7 +13,7 @@
 #include <string>
 #include <time.h>
 #include <stdlib.h>
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 
 using namespace std;
 
@@ -22,6 +22,36 @@ class Gabriel {
         static void print(string arg){
             cout << arg;
         }
+
+        static void print(int arg){
+            cout << arg;
+        }
+
+        static void print(float arg){
+            cout << arg;
+        }
+
+        static void println(string arg){
+            cout << arg << endl;
+        }
+
+        static void println(int arg){
+            cout << arg << endl;
+        }
+
+        static void println(float arg){
+            cout << arg << endl;  
+        }
+
+        static void clear(){
+            #ifdef _WIN32
+                system("cls");
+                return;
+            #endif
+
+            system("clear");
+        }
+
 };
 
 class Andrew {
@@ -31,36 +61,5 @@ class Andrew {
             const int BI = (rand() %
         (min - max + 1)) + min;
             return BI;
-        }
-
-        static int initializeRainbow(int width, int height){ 
-            Display *d; int s; Window w; XEvent ev;
-            int should_quit = 0;
-
-            d = XOpenDisplay(NULL);
-            s = XDefaultScreen(d);
-
-            w = XCreateSimpleWindow(d, XRootWindow(d, s), 0, 0,
-                                    width, height, 0,
-                                    XBlackPixel(d, s),
-                                    XWhitePixel(d, s));
-
-            XSelectInput(d, w, ButtonPressMask);
-            XMapWindow(d, w);
-
-            while(!should_quit)
-            {
-            XNextEvent(d, &ev);
-            switch(ev.type)
-                {
-                case ButtonPress:
-                should_quit = 1;
-                break;
-                default:
-            break;
-                }
-            }
-
-            return 0;
         }
 };

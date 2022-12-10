@@ -1,0 +1,21 @@
+import gabriel
+
+act getRandomNumber( min : bi32 max : bi32 ) -> bi32 {
+    getout Andrew::randomBi(min, max);
+}
+
+act main() -> bi32 {
+    max : bi32 = 0;
+    min : bi32 = 0;
+
+    while(max != 10){
+        Gabriel::print("---GERADOR DE NÚMEROS ALEATÓRIOS---\n");
+        Gabriel::print("Insira o valor máximo: ");
+        get >> max;
+        Gabriel::print("Insira o valor mínimo: ");
+        get >> min;
+        cry << getRandomNumber(min, max);
+    }
+
+    getout 0;
+}

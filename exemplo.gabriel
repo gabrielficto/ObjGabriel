@@ -1,18 +1,11 @@
 import gabriel
 
-act sumTwoNumbers( num1 : bi32 num2 : bi32 ) -> ficto {
-  cry << num1 + num2;
-}
-
-act greetUser() -> ficto {
-  cry << "Hello world!";
-  sumTwoNumbers(16, 16);
-}
+const int arrSize = 7;
+numbers[arrSize] : bi64 = {1.75, 2.0, 2.25, 2.50, 2.75, 3.0};
 
 act main() -> bi32 {
-  num : bi32 = 2;
-  num2 : bi32 = 2;
-  greetUser();
-  Gabriel::print("Hello");
-  getout 0;
+	i : bi32 = 0;
+
+	for(i; i < arrSize - 1; i++)
+		Gabriel::println(numbers[i]);
 }

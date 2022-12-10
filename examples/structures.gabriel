@@ -10,7 +10,7 @@ act main() -> bi32 {
     elf (num > 5 && num < 16)
         Gabriel::print("O número informado é maior que 5 e menor que 16");
     else
-        Gabriel::print("O número que vocẽ digitou é maior que 5");
+        Gabriel::print("O número que você digitou é maior que 5");
 
     cry << "Número aleatório: " << Andrew::randomBi(1, 1000);
 }

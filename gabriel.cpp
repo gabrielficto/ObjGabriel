@@ -27,6 +27,7 @@ int file_len = 0;
 struct
 {
     const regex LINE_COMMENT = regex("\/\/(.*)");
+    const regex LINE_COMMENT_ALT_RULE = regex("#(.*)");
     const regex FUNCTION_STATEMENT =
         regex("act .*\\(\\) -> .* {", std::regex_constants::basic);
     const regex FUNCTION_WITH_PARAMS_STATEMENT =
@@ -70,8 +71,10 @@ map<string, string> GabrielTypes;
 void initializeGabrielTypes()
 {
     GabrielTypes.insert(pair<string, string>("bi32", "int"));
+    GabrielTypes.insert(pair<string, string>("gay32", "int"));
     GabrielTypes.insert(pair<string, string>("bi64", "float"));
-    GabrielTypes.insert(pair<string, string>("bi", "boolean"));
+    GabrielTypes.insert(pair<string, string>("gay64", "float"));
+    GabrielTypes.insert(pair<string, string>("bi", "bool"));
     GabrielTypes.insert(pair<string, string>("label", "string"));
     GabrielTypes.insert(pair<string, string>("ficto", "void"));
 }
@@ -94,7 +97,13 @@ public:
 
     bool checkIfIsComment(string statement)
     {
-        return regex_search(statement, match, GabrielRules.LINE_COMMENT);
+        if(regex_search(statement, match, GabrielRules.LINE_COMMENT))
+            return true;
+
+        if(regex_search(statement, match, GabrielRules.LINE_COMMENT_ALT_RULE))
+            return true;
+
+        return false;
     }
 
     bool ReturnStatement(string statement)
@@ -136,6 +145,7 @@ public:
         #ifdef _WIN32
                 system("g++ -g output.cpp -o program.exe");
                 system("./program.exe");
+                return;
         #endif
 
         system("g++ -g program.cpp $(pkg-config --cflags --libs x11) -o program");
