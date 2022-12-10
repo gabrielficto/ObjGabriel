@@ -1,0 +1,1 @@
+zip -r releases/gabriellang_v0.2_alpha.zip .

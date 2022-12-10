@@ -1,1 +1,1 @@
-git add . && git commit -m "configurando projeto para buildar executáveis do Gabriel para Windows" && git push
+git add . && git commit -m "atualizando scripts para build e push e editando README" && git push
