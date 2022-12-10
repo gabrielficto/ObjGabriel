@@ -66,8 +66,18 @@ class Andrew {
 
 const int arrSize = 7; 
 float numbers[arrSize] = {1.75,2.0,2.25,2.50,2.75,3.0};
+class Person{
+public:
+string name = "Andrew";
+Person(){ 
+Gabriel::print("Hello"); 
+} 
+string getName() { 
+return name; 
+} 
+}; 
 int main() { 
-int i = 0;
-for(i; i < arrSize - 1; i++) 
-Gabriel::println(numbers[i]); 
+Person person; 
+Gabriel::print(person.getName()); 
+return 0; 
 } 

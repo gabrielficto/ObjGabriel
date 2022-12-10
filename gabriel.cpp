@@ -36,6 +36,7 @@ struct
     const regex INCLUDE_STATEMENT = regex("import .*");
     const regex PRINT_STATEMENT = regex("cry << .*;");
     const regex SCANF_STATEMENT = regex("get >> .*;");
+    const regex CLASS_DECLARATION = regex("closet .* (\\{)");
     const regex VAR_DECL_STATEMENT = regex(".* \\: .* \\= .*", std::regex_constants::basic);
 } GabrielRules;
 
@@ -47,6 +48,12 @@ struct
     const string INCLUDE = "#include";
     const string IMPORT = "import";
     const string FICTOGEM = "fictogem";
+    const string CPP_CLASS = "class";
+    const string CLASS = "closet";
+    const string INHERITS = "fucks";
+    const string CPP_INHERITS = ":";
+    const string PUBLIC_ATTR = "--polyamorous";
+    const string CPP_PUBLIC_ATTR = "public:";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -140,6 +147,10 @@ public:
         return regex_search(statement, match, GabrielRules.VAR_DECL_STATEMENT);
     }
 
+    bool isClassDeclaration(string statement){
+        return regex_search(statement, match, GabrielRules.CLASS_DECLARATION);
+    }
+
     void exec()
     {
         #ifdef _WIN32
@@ -148,7 +159,7 @@ public:
                 return;
         #endif
 
-        system("g++ -g program.cpp $(pkg-config --cflags --libs x11) -o program");
+        system("g++ -g program.cpp -o program");
         system("./program");
     }
 };
@@ -231,8 +242,12 @@ int main(int argc, char *argv[])
 {
     initializeGabrielTypes();
 
-    input = argv[1];
-    readFromFile(input);
+    if(argv[1]){
+        input = argv[1];
+        readFromFile(input);
+    } else 
+        cout << "FATAL: NO INPUT FILE PROVIDED TO COMPILE!!!";
+
     return 0;
 }
 
@@ -267,6 +282,10 @@ string tokenizer(string statement)
 
     if(statement == "import gabriel"){
         return importGabrielSTDLibrary();
+    }
+
+    if(statement == "  " + GabrielKeywords.PUBLIC_ATTR){
+        return GabrielKeywords.CPP_PUBLIC_ATTR;
     }
 
     int i = 0;
@@ -334,6 +353,13 @@ string tokenizer(string statement)
                 break;
             }
         }
+    }
+
+    if(gabriel.isClassDeclaration(statement)){
+        if(tokens[0] == GabrielKeywords.CLASS) 
+            tokens[0] = GabrielKeywords.CPP_CLASS;
+        
+        return tokens[0] + " " + tokens[1] + (tokens[2] != "" ? tokens[2] : "");
     }
 
     if (gabriel.isIncludeStatement(statement))
