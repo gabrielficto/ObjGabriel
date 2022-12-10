@@ -155,7 +155,7 @@ public:
     {
         #ifdef _WIN32
                 system("g++ -g output.cpp -o program.exe");
-                system("./program.exe");
+                system("program.exe");
                 return;
         #endif
 

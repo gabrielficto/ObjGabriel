@@ -1,1 +1,1 @@
-git add . && git commit -m "adicionando keywords referentes à programação orientada a objetos" && git push
+git add . && git commit -m "configurando projeto para buildar executáveis do Gabriel para Windows" && git push
