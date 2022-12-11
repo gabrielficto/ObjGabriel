@@ -262,7 +262,7 @@ int main(int argc, char *argv[])
         readFromFile(input);
     }
     else
-        cout << "FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .GABRIEL EXTENSION!!!";
+        cout << "🛑️ FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .GABRIEL EXTENSION!!!";
 
     return 0;
 }
