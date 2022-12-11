@@ -68,7 +68,8 @@ typedef struct GabrielVariable
     string value;
 } Variable;
 
-typedef struct GabrielFunctionWithParams {
+typedef struct GabrielFunctionWithParams
+{
     string identifier;
     string type;
 } FunctionWithArgs;
@@ -104,10 +105,10 @@ public:
 
     bool checkIfIsComment(string statement)
     {
-        if(regex_search(statement, match, GabrielRules.LINE_COMMENT))
+        if (regex_search(statement, match, GabrielRules.LINE_COMMENT))
             return true;
 
-        if(regex_search(statement, match, GabrielRules.LINE_COMMENT_ALT_RULE))
+        if (regex_search(statement, match, GabrielRules.LINE_COMMENT_ALT_RULE))
             return true;
 
         return false;
@@ -123,7 +124,8 @@ public:
         return regex_search(statement, match, GabrielRules.FUNCTION_STATEMENT);
     }
 
-    bool checkIfIsFunctionWithParams(string statement){
+    bool checkIfIsFunctionWithParams(string statement)
+    {
         return regex_search(statement, match, GabrielRules.FUNCTION_WITH_PARAMS_STATEMENT);
     }
 
@@ -147,28 +149,31 @@ public:
         return regex_search(statement, match, GabrielRules.VAR_DECL_STATEMENT);
     }
 
-    bool isClassDeclaration(string statement){
+    bool isClassDeclaration(string statement)
+    {
         return regex_search(statement, match, GabrielRules.CLASS_DECLARATION);
     }
 
     void exec()
     {
-        #ifdef _WIN32
-                system("g++ -g output.cpp -o program.exe");
-                system("program.exe");
-                return;
-        #endif
+#ifdef _WIN32
+        system("g++ -g output.cpp -o program.exe");
+        system("program.exe");
+        return;
+#endif
 
         system("g++ -g program.cpp -o program");
         system("./program");
     }
 };
 
-string importFictoGem(){
+string importFictoGem()
+{
     return "#include <string>\n#include <iostream>\nusing namespace std;\n";
 }
 
-string importGabrielSTDLibrary(){
+string importGabrielSTDLibrary()
+{
     fstream file;
     file.open("./lang/gabrielstd.cpp", ios::in);
 
@@ -184,13 +189,16 @@ string importGabrielSTDLibrary(){
             line++;
             len++;
         }
-    } else {
+    }
+    else
+    {
         cout << "ObjGabriel was unable to find the specified library!";
     }
 
     string joined;
 
-    for(int i = 0; i < len; i++){
+    for (int i = 0; i < len; i++)
+    {
         joined += lib_code[i] + "\n";
     }
 
@@ -242,10 +250,12 @@ int main(int argc, char *argv[])
 {
     initializeGabrielTypes();
 
-    if(argv[1]){
+    if (argv[1])
+    {
         input = argv[1];
         readFromFile(input);
-    } else 
+    }
+    else
         cout << "FATAL: NO INPUT FILE PROVIDED TO COMPILE!!!";
 
     return 0;
@@ -276,15 +286,18 @@ string tokenizer(string statement)
 
     stringstream ssin(statement);
 
-    if(statement == "import fictogem"){
+    if (statement == "import fictogem")
+    {
         return importFictoGem();
     }
 
-    if(statement == "import gabriel"){
+    if (statement == "import gabriel")
+    {
         return importGabrielSTDLibrary();
     }
 
-    if(statement == "  " + GabrielKeywords.PUBLIC_ATTR){
+    if (statement == "  " + GabrielKeywords.PUBLIC_ATTR)
+    {
         return GabrielKeywords.CPP_PUBLIC_ATTR;
     }
 
@@ -320,7 +333,8 @@ string tokenizer(string statement)
             value - 4+
         */
 
-        for(int token = 4; token < 50; token++){
+        for (int token = 4; token < 50; token++)
+        {
             var.value += tokens[token];
         }
 
@@ -336,12 +350,13 @@ string tokenizer(string statement)
             if (tokens[token] == GabrielKeywords.FUNCTION)
                 tokens[token] = "";
 
-            if(tokens[token] != "" && tokens[token + 1] == ":" && tokens[token] != ""){
+            if (tokens[token] != "" && tokens[token + 1] == ":" && tokens[token] != "")
+            {
                 funarg.identifier = tokens[token];
                 funarg.type = tokens[token + 2];
-                tokens[token + 1] = ""; 
+                tokens[token + 1] = "";
                 tokens[token] = translateTypesToC(funarg.type);
-                tokens[token + 2] = tokens[token + 3] != ")" ? funarg.identifier + ",": funarg.identifier;
+                tokens[token + 2] = tokens[token + 3] != ")" ? funarg.identifier + "," : funarg.identifier;
                 continue;
             }
 
@@ -355,10 +370,11 @@ string tokenizer(string statement)
         }
     }
 
-    if(gabriel.isClassDeclaration(statement)){
-        if(tokens[0] == GabrielKeywords.CLASS) 
+    if (gabriel.isClassDeclaration(statement))
+    {
+        if (tokens[0] == GabrielKeywords.CLASS)
             tokens[0] = GabrielKeywords.CPP_CLASS;
-        
+
         return tokens[0] + " " + tokens[1] + (tokens[2] != "" ? tokens[2] : "");
     }
 
