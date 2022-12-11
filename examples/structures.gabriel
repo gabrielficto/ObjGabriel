@@ -1,5 +1,9 @@
 import gabriel
 
+sextoy {
+    string x;
+} Structure;
+
 act main() -> bi32 {
     num : bi32 = 0;
 
@@ -12,5 +16,7 @@ act main() -> bi32 {
     else
         Gabriel::print("O número que você digitou é maior que 5");
 
-    cry << "Número aleatório: " << Andrew::randomBi(1, 1000);
+    cry << "Número aleatório: " << Andrew::randomBi32(1, 1000);
+
+
 }

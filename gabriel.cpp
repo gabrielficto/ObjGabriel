@@ -27,6 +27,7 @@ int file_len = 0;
 struct
 {
     const regex LINE_COMMENT = regex("\/\/(.*)");
+    const regex GABRIEL_FILE = regex(".*[A-Za-z_0-9]\\.gabriel", std::regex_constants::basic);
     const regex LINE_COMMENT_ALT_RULE = regex("#(.*)");
     const regex FUNCTION_STATEMENT =
         regex("act .*\\(\\) -> .* {", std::regex_constants::basic);
@@ -54,6 +55,8 @@ struct
     const string CPP_INHERITS = ":";
     const string PUBLIC_ATTR = "--polyamorous";
     const string CPP_PUBLIC_ATTR = "public:";
+    const string STRUCT = "sextoy";
+    const string CPP_STRUCT = "struct";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -248,15 +251,18 @@ void parse()
 
 int main(int argc, char *argv[])
 {
+    smatch match;
+
     initializeGabrielTypes();
 
-    if (argv[1])
+    input = argv[1];
+
+    if (regex_search(input, match, GabrielRules.GABRIEL_FILE))
     {
-        input = argv[1];
         readFromFile(input);
     }
     else
-        cout << "FATAL: NO INPUT FILE PROVIDED TO COMPILE!!!";
+        cout << "FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .GABRIEL EXTENSION!!!";
 
     return 0;
 }
@@ -307,6 +313,11 @@ string tokenizer(string statement)
     {
         ssin >> tokens[i];
         ++i;
+    }
+
+    if (tokens[0] == GabrielKeywords.STRUCT)
+    {
+        tokens[0] = GabrielKeywords.CPP_STRUCT;
     }
 
     if (gabriel.isPrintf(statement))
@@ -398,8 +409,8 @@ string tokenizer(string statement)
             {
                 tokens[i] = "return";
             }
-        else if (tokens[i] == "getout;")
-            tokens[i] = "return;";
+            else if (tokens[i] == "getout;")
+                tokens[i] = "return;";
 
         if (tokens[i] == "elf")
             tokens[i] = "else if";
