@@ -398,6 +398,8 @@ string tokenizer(string statement)
             {
                 tokens[i] = "return";
             }
+        else if (tokens[i] == "getout;")
+            tokens[i] = "return;";
 
         if (tokens[i] == "elf")
             tokens[i] = "else if";

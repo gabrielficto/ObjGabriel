@@ -1,0 +1,102 @@
+import cstdlib
+import gabriel
+
+const int TAM = 5;
+vertices[TAM] : bi32 = {};
+adjac[TAM][TAM] : bi32 = {};
+itens : bi32 = 0;
+
+act insereVertice( valor : bi32 ) -> ficto {
+    indice : bi32 = 0;
+
+    if(itens == TAM){
+        Gabriel::println("O vetor está cheio!");
+        getout;
+    }
+
+    for(indice = 0; indice < itens; indice++){
+        if(vertices[indice] == valor){
+            Gabriel::println("O valor já existe no vetor");
+            getout;
+        }
+    }
+
+    vertices[itens] = valor;
+    Gabriel::println("O vértice foi inserido!");
+    itens++;
+}
+
+act insereAresta( origem : bi32 destino : bi32 ) -> ficto {
+    i : bi32 = 0, origExiste = -1, destExiste = -1;
+
+    for(i = 0; i < itens; i++){
+        if(vertices[i] == origem)
+            origExiste = i;
+        if(vertices[i] == destino)
+            destExiste = i;
+    }
+
+    if(origExiste == -1 && destExiste == -1){
+        Gabriel::println("Origem e destino não existem!!!");
+        getout;
+    }
+
+    if(origExiste == -1){
+        Gabriel::println("Origem não existe!!!");
+        getout;
+    }
+
+    if(destExiste == -1){
+        Gabriel::println("Destino não existe!!!");
+        getout;
+    }
+
+    if(adjac[origExiste][destExiste] == 1){
+        Gabriel::println("A aresta já existe no grafo!!!");
+        getout;
+    }
+
+    adjac[origExiste][destExiste] = 1;
+    Gabriel::println("A aresta foi inserida no grafo!!!");
+    getout;
+}
+
+act imprime() -> ficto {
+    if(itens == 0){
+        Gabriel::println("O grafo não existe!!!");
+        getout;
+    }
+
+    j : bi32 = 0, i = 0;
+    cry << endl;
+
+    for(j = 0; j < itens; j++){
+        cry << "" << vertices[j];
+        for(i = 0; i < itens; i++){
+            if(adjac[j][i] == 1)
+                cry << " <" << vertices[j] << "," << vertices[i] << "> ";
+        }
+        cry << endl;
+    }
+}
+
+act main() -> bi32 {
+    i : bi32 = 0, j = 0;
+
+    for(i = 0; i < TAM; i++){
+        for(j = 0; j < TAM; j++)
+            adjac[i][j] = 0;
+    }
+
+    insereVertice(10);
+    insereVertice(21);
+    insereVertice(32);
+    insereVertice(15);
+    insereAresta(10, 21);
+    insereAresta(10, 32);
+    insereAresta(21, 10);
+    insereAresta(32, 15);
+    insereAresta(15, 21);
+    imprime();
+    getout 0;
+}

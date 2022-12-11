@@ -73,12 +73,12 @@ public:
         return BI;
     }
 
-    static float randomBi64(float min, float max)
+    /*static float randomBi64(float min, float max)
     {
         srand(time(0));
-        const float BI = (rand() %
+        const float BI = ((rand()) %
                           (min - max + 1)) +
                          min;
         return BI;
-    }
+    }*/
 };
