@@ -13,6 +13,7 @@
 #include <string>
 #include <time.h>
 #include <stdlib.h>
+#include <fstream>
 // #include <X11/Xlib.h>
 
 using namespace std;
@@ -83,20 +84,43 @@ public:
     }*/
 };
 
-const bi32 hello = 0; 
+class FileHandler   {
+    std::string filename = "";
+
+    public:
+        FileHandler(std::string filename){ 
+            this->filename = filename; 
+        }
+
+        void write( std::string content ) { 
+            std::ofstream File(this->filename); 
+            File << content; 
+            File.close(); 
+        } 
+
+        std::string readLine() { 
+            std::ifstream File(this->filename); 
+            std::string content = "";
+            getline(File, content); 
+            File.close(); 
+            return content; 
+        } 
+}; 
+
+const int arrSize = 7; 
+float numbers[arrSize] = {1.75,2.0,2.25,2.50,2.75,3.0};
 class Person{
-private:
-string name = "Vinicius";
-int age = 0;
 public:
+std::string name = "Andrew";
 Person(){ 
-Gabriel::println("Objeto Person criado"); 
+Gabriel::print("Hello"); 
 } 
-void introduceHimself() { 
-Gabriel::print("Olá, eu sou o " + this->name + "!"); 
+std::string getName() { 
+return name; 
 } 
 }; 
 int main() { 
-Person Vinicius; 
-Vinicius.introduceHimself(); 
+Person person; 
+Gabriel::print(person.getName()); 
+return 0; 
 } 

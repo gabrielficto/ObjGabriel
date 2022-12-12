@@ -1,1 +1,1 @@
-git add . && git commit -m "melhorando suporte à orientação a objetos, corrigindo bugs e lançando versão 0.3" && git push
+git add . && git commit -m "corrigindo bugs e adicionando classe para ler e escrever arquivos" && git push
