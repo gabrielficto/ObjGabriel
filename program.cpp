@@ -84,43 +84,23 @@ public:
     }*/
 };
 
-class FileHandler   {
-    std::string filename = "";
-
-    public:
-        FileHandler(std::string filename){ 
-            this->filename = filename; 
-        }
-
-        void write( std::string content ) { 
-            std::ofstream File(this->filename); 
-            File << content; 
-            File.close(); 
-        } 
-
-        std::string readLine() { 
-            std::ifstream File(this->filename); 
-            std::string content = "";
-            getline(File, content); 
-            File.close(); 
-            return content; 
-        } 
-}; 
-
-const int arrSize = 7; 
-float numbers[arrSize] = {1.75,2.0,2.25,2.50,2.75,3.0};
 class Person{
+private:
+std::string name = "Vinicius";
+int age = 0;
 public:
-std::string name = "Andrew";
 Person(){ 
-Gabriel::print("Hello"); 
+Gabriel::println("Objeto Person criado"); 
 } 
-std::string getName() { 
-return name; 
+void introduceHimself() { 
+Gabriel::print("Olá, eu sou o " + this->name + "!"); 
 } 
+}; 
+class Person2: public Person{
 }; 
 int main() { 
-Person person; 
-Gabriel::print(person.getName()); 
-return 0; 
+Person Vinicius; 
+Person2 Emmanuel; 
+Vinicius.introduceHimself(); 
+Emmanuel.introduceHimself(); 
 } 

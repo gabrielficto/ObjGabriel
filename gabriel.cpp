@@ -52,7 +52,7 @@ struct
     const string CPP_CLASS = "class";
     const string CLASS = "closet";
     const string INHERITS = "fucks";
-    const string CPP_INHERITS = ":";
+    const string CPP_INHERITS = ": public ";
     const string PUBLIC_ATTR = "--polyamorous";
     const string CPP_PUBLIC_ATTR = "public:";
     const string PRIVATE_ATTR = "--closeted";
@@ -179,7 +179,8 @@ string importFictoGem()
     return "#include <string>\n#include <iostream>\nusing namespace std;\n";
 }
 
-string importLibrary(string filename){
+string importLibrary(string filename)
+{
     fstream file;
     file.open("./lang/" + filename + ".cpp", ios::in);
 
@@ -214,7 +215,7 @@ string importLibrary(string filename){
 string importGabrielSTDLibrary()
 {
     fstream file;
-    file.open("./lang/gabrielstd.cpp", ios::in);
+    file.open("./lang/std/gabrielstd.cpp", ios::in);
 
     string lib_code[100];
     int len = 0;
@@ -340,13 +341,13 @@ string tokenizer(string statement)
 
     if (statement == "import file")
     {
-        return importLibrary("file");
+        return importLibrary("file/file");
     }
 
     string statement_with_trim = statement;
-    
+
     statement_with_trim.erase(std::remove_if(statement_with_trim.begin(), statement_with_trim.end(), ::isspace),
-        statement_with_trim.end()) ;
+                              statement_with_trim.end());
 
     if (statement_with_trim == GabrielKeywords.PUBLIC_ATTR)
     {
@@ -434,10 +435,25 @@ string tokenizer(string statement)
 
     if (gabriel.isClassDeclaration(statement))
     {
+        bool inheritsFromAnotherClass;
+
+        for (int token = 0; token < 50; token++)
+        {
+            if (tokens[token] == GabrielKeywords.INHERITS)
+            {
+                tokens[token] = GabrielKeywords.CPP_INHERITS;
+                inheritsFromAnotherClass = true;
+                break;
+            }
+        }
+
         if (tokens[0] == GabrielKeywords.CLASS)
             tokens[0] = GabrielKeywords.CPP_CLASS;
 
-        return tokens[0] + " " + tokens[1] + (tokens[2] != "" ? tokens[2] : "");
+        if (!inheritsFromAnotherClass)
+            return tokens[0] + " " + tokens[1] + (tokens[2] != "" ? tokens[2] : "");
+        else
+            return tokens[0] + " " + tokens[1] + tokens[2] + tokens[3] + (tokens[4] == "{" ? tokens[4] : "");
     }
 
     if (gabriel.isIncludeStatement(statement))

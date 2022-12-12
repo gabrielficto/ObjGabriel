@@ -22,8 +22,15 @@ closet Person {
     }
 };
 
+closet Person2 fucks Person {
+  
+};
+
 act main() -> bi32 {
 	//Instanciando um objeto de uma classe
 	Person Vinicius;
+  Person2 Emmanuel;
+
   Vinicius.introduceHimself();
+  Emmanuel.introduceHimself();
 }
