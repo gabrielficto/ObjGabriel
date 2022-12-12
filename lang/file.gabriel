@@ -1,0 +1,32 @@
+import iostream
+import fstream
+
+closet FileHandler {
+    filename : label = "";
+
+    --polyamorous
+        FileHandler(std::string filename){
+            this->filename = filename;
+        }
+
+        act write( content : label ) -> ficto {
+            std::ofstream File(this->filename);
+            File << content;
+            File.close();
+        }
+
+        act readLine() -> label {
+            std::ifstream File(this->filename);
+            content : label = "";
+            getline(File, content);
+            File.close();
+            getout content;
+        }
+};
+
+act main() -> bi32 {
+    FileHandler file("file.txt");
+    file.write("Hello");
+    cry << file.readLine();
+    getout 0;
+}
