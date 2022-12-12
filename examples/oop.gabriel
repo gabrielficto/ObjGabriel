@@ -1,24 +1,29 @@
 import gabriel
 
-const int arrSize = 7;
-numbers[arrSize] : bi64 = {1.75, 2.0, 2.25, 2.50, 2.75, 3.0};
-
+//Declarando uma classe
 closet Person {
-  --polyamorous
-    name : label = "Andrew";
+	//Definindo os atributos
+  //Tudo o que for closeted, é privado (acessível só na classe)
+  --closeted
+    name : label = "Vinicius";
+    age : bi32 = 0;
 
+  //Tudo o que for polyamorous, é público (acessível de fora da classe)
+  --polyamorous
+    //Criando um construtor
+    //Os construtores têm o mesmo nome da classe
     Person(){
-      Gabriel::print("Hello");
+      Gabriel::println("Objeto Person criado");
     }
 
-    act getName() -> label {
-      getout name;
+    //Definindo um método
+    act introduceHimself() -> ficto {
+      Gabriel::print("Olá, eu sou o " + this->name + "!");
     }
 };
 
 act main() -> bi32 {
-  Person person;
-  Gabriel::print(person.getName());
-  getout 0;
+	//Instanciando um objeto de uma classe
+	Person Vinicius;
+  Vinicius.introduceHimself();
 }
-

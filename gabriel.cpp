@@ -55,8 +55,12 @@ struct
     const string CPP_INHERITS = ":";
     const string PUBLIC_ATTR = "--polyamorous";
     const string CPP_PUBLIC_ATTR = "public:";
+    const string PRIVATE_ATTR = "--closeted";
+    const string CPP_PRIVATE_ATTR = "private:";
     const string STRUCT = "sextoy";
     const string CPP_STRUCT = "struct";
+    const string THIS_KEYWORD = "bitch";
+    const string CPP_THIS_KEYWORD = "this";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -305,6 +309,11 @@ string tokenizer(string statement)
     if (statement == "  " + GabrielKeywords.PUBLIC_ATTR)
     {
         return GabrielKeywords.CPP_PUBLIC_ATTR;
+    }
+
+    if (statement == "  " + GabrielKeywords.PRIVATE_ATTR)
+    {
+        return GabrielKeywords.CPP_PRIVATE_ATTR;
     }
 
     int i = 0;

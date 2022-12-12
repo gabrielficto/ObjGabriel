@@ -1,1 +1,1 @@
-git add . && git commit -m "atualizando keywords reconhecidas pelo Gabriel e suporte a estruturas" && git push
+git add . && git commit -m "melhorando suporte à orientação a objetos, corrigindo bugs e lançando versão 0.3" && git push
