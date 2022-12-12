@@ -4,7 +4,7 @@
 Linguagem de programação sem sentido nem finalidade baseada em C criada por mim e pelo @Redwars22
 
 
-[📚️ LER MANUAL DA LINGUAGEM]("https://leoandrew.notion.site/OBJGABRIEL-CHEATSHEET-7e55b3eecce343f6abdb92d955c18478")
+[📚️ LER MANUAL DA LINGUAGEM](https://leoandrew.notion.site/OBJGABRIEL-CHEATSHEET-7e55b3eecce343f6abdb92d955c18478)
 
 # Como usar
 
