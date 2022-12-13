@@ -1,1 +1,1 @@
-git add . && git commit -m "corrigindo bugs e adicionando classe para ler e escrever arquivos" && git push
+git add . && git commit -m "adicionando biblioteca do Gabriel para lidar com arquivos - funções para escrever, ler a primeira linha e ler o arquivo todo" && git push

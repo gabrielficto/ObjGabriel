@@ -15,18 +15,29 @@ closet FileHandler {
             File.close();
         }
 
-        act readLine() -> label {
+        act readFirstLine() -> label {
             std::ifstream File(this->filename);
             content : label = "";
             getline(File, content);
             File.close();
             getout content;
         }
+
+        act read() -> label {
+            std::ifstream file(this->filename.c_str());
+            line : label = "", content;
+            
+            while (getline(file, line))
+                content += line + "\n"; 
+                
+            file.close();
+            getout content;
+        }
 };
 
 act main() -> bi32 {
     FileHandler file("file.txt");
-    file.write("Hello");
-    cry << file.readLine();
+    file.write("Hello\nThis\nis\nMy file!!");
+    cry << file.read();
     getout 0;
 }

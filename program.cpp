@@ -84,23 +84,42 @@ public:
     }*/
 };
 
-class Person{
-private:
-std::string name = "Vinicius";
-int age = 0;
-public:
-Person(){ 
-Gabriel::println("Objeto Person criado"); 
-} 
-void introduceHimself() { 
-Gabriel::print("Olá, eu sou o " + this->name + "!"); 
-} 
-}; 
-class Person2: public Person{
-}; 
+class FileHandler {
+    std::string filename = "";
+    public:
+        FileHandler(std::string filename) {
+            this -> filename = filename;
+        }
+    void write(std::string content) {
+        std::ofstream File(this -> filename);
+        File << content;
+        File.close();
+    }
+    std::string readFirstLine() {
+        std::ifstream File(this -> filename);
+        std::string content = "";
+        getline(File, content);
+        File.close();
+        return content;
+    }
+    std::string read() {
+        std::ifstream file(this -> filename.c_str());
+        std::string line = "", content;
+        while (getline(file, line))
+            content += line + "\n";
+        file.close();
+        return content;
+    }
+};
+
 int main() { 
-Person Vinicius; 
-Person2 Emmanuel; 
-Vinicius.introduceHimself(); 
-Emmanuel.introduceHimself(); 
+const std::string filename = "example"; 
+FileHandler file(filename); 
+std::string content = "";
+Gabriel::print("Write here what you want to save in the file: "); 
+std::cin >> content; 
+file.write(content); 
+Gabriel::print("Here's what you wrote in the file: "); 
+Gabriel::print(file.read()); 
+return 0; 
 } 

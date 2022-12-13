@@ -155,13 +155,106 @@ act main() -> bi32 {
 
 # 🍌 PROGRAMAÇÃO ORIENTADA A OBJETOS
 
-## 🍌🍑 CLASSES E OBJETOS
+## 🍌🍑 CLASSES, OBJETOS E CONSTRUTORES
 
-## 🏗️ CONSTRUTORES
+**AINDA FALTA ADICIONAR SUPORTE PARA ATRIBUTOS E PARA A PALAVRA-CHAVE THIS (QUE AINDA ESTAMOS DECIDINDO COMO VAMOS REPRESENTÁ-LA EM OBJGABRIEL).**
+
+```cpp
+//Declarando uma classe
+closet Person {
+	//Definindo os atributos
+	name : label = "";
+	age : bi32 = 0;
+
+	//Criando um construtor
+	//Os construtores têm o mesmo nome da classe
+	Person(){
+		Gabriel::print("Objeto Person criado");
+	}
+
+	//Definindo um método
+	act introduceHimself() -> ficto {
+		Gabriel::print("Olá, eu sou o " + this->name + "!");
+	}
+}
+
+act main() -> bi32 {
+	//Instanciando um objeto de uma classe
+	Person Gabriel;
+}
+```
+
+---
 
 ## 🔑 MODIFICADORES DE ACESSO
 
-## 👪 HERANÇA E POLIMORFISMO
+```cpp
+closet Person {
+	//Se você não especificar nenhum modificador de acesso,
+	//os atributos e métodos serão considerados privados
+	//por padrão!!
+
+  //Tudo o que for closeted, é privado (acessível só na classe)
+  --closeted
+    name : label = "Vinicius";
+    age : bi32 = 0;
+
+  //Tudo o que for polyamorous, é público (acessível de fora da classe)
+  --polyamorous
+    //Criando um construtor
+    //Os construtores têm o mesmo nome da classe
+    Person(){
+      Gabriel::println("Objeto Person criado");
+    }
+
+    //Definindo um método
+    act introduceHimself() -> ficto {
+      Gabriel::print("Olá, eu sou o " + this->name + "!");
+    }
+}
+```
+
+## 👪 HERANÇA
+
+```cpp
+import gabriel
+
+closet Person {
+  --closeted
+    name : label = "Vinicius";
+    age : bi32 = 0;
+
+  --polyamorous
+    Person(){
+      Gabriel::println("Objeto Person criado");
+    }
+
+    act introduceHimself() -> ficto {
+      Gabriel::println("Olá, eu sou o " + this->name + "!");
+    }
+};
+
+//Classe que herda da classe Person
+closet Person2 fucks Person {
+  --polyamorous
+    
+    //Sobrescreve o método da classe pai
+    act introduceHimself() -> ficto {
+      Gabriel::println("Olá, eu sou o Emmanuel!");
+    }
+};
+
+act main() -> bi32 {
+	//Instanciando um objeto de uma classe
+	Person Vinicius;
+  Person2 Emmanuel;
+
+  Vinicius.introduceHimself();
+  Emmanuel.introduceHimself();
+}
+```
+
+Outros conceitos de POO não serão explicados nem exemplificados aqui pois eles funcionam exatamente como em C++ e linguagens descendentes e relacionadas a ela.
 
 ---
 

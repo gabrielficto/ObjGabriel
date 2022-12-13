@@ -1,25 +1,20 @@
 import gabriel
 import file
 
-const int arrSize = 7;
-numbers[arrSize] : bi64 = {1.75, 2.0, 2.25, 2.50, 2.75, 3.0};
-
-closet Person {
-  --polyamorous
-    name : label = "Andrew";
-
-    Person(){
-      Gabriel::print("Hello");
-    }
-
-    act getName() -> label {
-      getout name;
-    }
-};
-
 act main() -> bi32 {
-  Person person;
-  Gabriel::print(person.getName());
+  const std::string filename = "example";
+  
+  FileHandler file(filename);
+
+  content : label = "";
+
+  Gabriel::print("Write here what you want to save in the file: ");
+  get >> content;
+
+  file.write(content);
+
+  Gabriel::print("Here's what you wrote in the file: ");
+  Gabriel::print(file.read());
+
   getout 0;
 }
-
