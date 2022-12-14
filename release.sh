@@ -1,1 +1,1 @@
-sh build.sh && sh commit.sh && zip -r releases/gabriellang_v0.6_alpha.zip .
+sh build.sh && sh commit.sh && zip -r releases/gabriellang_v0.6_release_preview.zip .
