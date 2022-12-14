@@ -1,5 +1,7 @@
 # OBJGABRIEL CHEATSHEET
 
+Documentação do LGBTScript escrita pelo Gabriel e pelo Andrew. Se tiver ficado uma bosta, a culpa é do Gabriel (minha), já que eu não manjo bem de português e o meu vocabulário é bem das ruas mesmo, mas tentei dar o meu melhor.
+
 ---
 
 # 🖥️ ENTRADA E SAÍDA DE DADOS
@@ -260,6 +262,40 @@ Outros conceitos de POO não serão explicados nem exemplificados aqui pois eles
 
 # 🗃️ MANIPULAÇÃO DE ARQUIVOS
 
+Eu e o Gabriel sabemos que manipular arquivos em C ou C++ é uma tarefa árdua: é necessário importar diversas bibliotecas, ler o conteúdo do arquivo linha a linha com laços de repetição, etc. Para auxiliar os programadores, ele inclui uma biblioteca nativa com uma classe FileHandler que contém os métodos mais comuns para manipular arquivos (escrever, ler, verificar se existe, etc…). 
+
+Comece adicionando um `import file` no começo do arquivo (lembrando que, como ele tem como dependência a biblioteca padrão da linguagem, é necessário colocá-lo depois do `import gabriel`).
+
+```cpp
+import gabriel
+import file
+
+act main() -> bi32 {
+  const std::string filename = "example";
+  
+	//Instanciando a classe FileHandler e passando
+	//o nome do arquivo como construtor
+  FileHandler file(filename);
+
+  content : label = "";
+
+  Gabriel::print("Write here what you want to save in the file: ");
+  get >> content;
+
+	//Escrevendo no arquivo
+  file.write(content);
+
+  Gabriel::print("Here's what you wrote in the file: ");
+
+	//Lendo o conteúdo do arquivo
+  Gabriel::print(file.read());
+
+  getout 0;
+}
+```
+
+---
+
 # 🐞 TRATAMENTO DE EXCEÇÕES
 
-# 🧩 IMPORTS E MÓDULOS
+Essa parte nem vale a pena explicar porque ela é igual em C++, as mesmas palavras-chave e a mesma sintaxe. Na verdade, eu e o Andrew estávamos com preguiça de explicar também, porque escrever documentação é meio paia, ainda mais que eu não manjo muito bem de português, então ferrou.

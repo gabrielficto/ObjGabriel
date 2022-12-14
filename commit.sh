@@ -1,1 +1,1 @@
-git add . && git commit -m "lançando versão RELEASE PREVIEW do ObjGabriel (futuramente será chamado de LGBTScript)" && git push
+git add . && git commit -m "atualizando documentação do ObjGabriel (futuramente será chamado de LGBTScript)" && git push
