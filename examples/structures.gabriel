@@ -17,6 +17,4 @@ act main() -> bi32 {
         Gabriel::print("O número que você digitou é maior que 5");
 
     cry << "Número aleatório: " << Andrew::randomBi32(1, 1000);
-
-
 }
