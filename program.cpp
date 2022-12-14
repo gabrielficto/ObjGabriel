@@ -113,13 +113,5 @@ class FileHandler {
 };
 
 int main() { 
-const std::string filename = "example"; 
-FileHandler file(filename); 
-std::string content = "";
-Gabriel::print("Write here what you want to save in the file: "); 
-std::cin >> content; 
-file.write(content); 
-Gabriel::print("Here's what you wrote in the file: "); 
-Gabriel::print(file.read()); 
-return 0; 
+std::cout getName(); ifError cry << err; 
 } 

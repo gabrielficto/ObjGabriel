@@ -33,6 +33,7 @@ struct
         regex("act .*\\(\\) -> .* {", std::regex_constants::basic);
     const regex FUNCTION_WITH_PARAMS_STATEMENT =
         regex(".*\\(.{1,}\\) {", std::regex_constants::basic);
+    const regex TRY_CATCH_STATEMENT = regex("try .* ifError .*");
     const regex RETURN_STATEMENT = regex("getout .*");
     const regex INCLUDE_STATEMENT = regex("import .*");
     const regex PRINT_STATEMENT = regex("cry << .*;");
@@ -61,6 +62,11 @@ struct
     const string CPP_STRUCT = "struct";
     const string THIS_KEYWORD = "bitch";
     const string CPP_THIS_KEYWORD = "this";
+    const string CATCH_KEYWORD = "ifError";
+    const string CPP_CATCH_KEYWORD = "catch";
+    const string THROW_KEYWORD = "sabot";
+    const string CPP_THROW_KEYWORD = "throw";
+    const string TRY_KEYWORD = "try";
 } GabrielKeywords;
 
 typedef struct GabrielFunctions
@@ -159,6 +165,10 @@ public:
     bool isClassDeclaration(string statement)
     {
         return regex_search(statement, match, GabrielRules.CLASS_DECLARATION);
+    }
+
+    bool isTryCatchStatement(string statement){
+        return regex_search(statement, match, GabrielRules.TRY_CATCH_STATEMENT);
     }
 
     void exec()
@@ -403,6 +413,24 @@ string tokenizer(string statement)
 
         return translateTypesToC(var.type) + " " + var.identifier + " = " + var.value;
     }
+
+    /*if(gabriel.isTryCatchStatement(statement)){
+        string trycatchstatement;
+
+        for(int token = 0; token < 50; token++){
+            if(tokens[token] == GabrielKeywords.TRY_KEYWORD){
+                tokens[token] == (GabrielKeywords.TRY_KEYWORD + " { ");
+            }
+
+            if(tokens[token] == GabrielKeywords.CATCH_KEYWORD){
+                tokens[token] == " } " + GabrielKeywords.CPP_CATCH_KEYWORD + " (std::string err) { ";
+            }
+
+            trycatchstatement += tokens[token];
+        }
+
+        return trycatchstatement + " } ";
+    }*/
 
     if (gabriel.checkIfIsFunctionDeclaration(statement))
     {

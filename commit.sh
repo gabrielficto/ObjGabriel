@@ -1,1 +1,1 @@
-git add . && git commit -m "adicionando biblioteca do Gabriel para lidar com arquivos - funções para escrever, ler a primeira linha e ler o arquivo todo" && git push
+git add . && git commit -m "lançando versão RELEASE PREVIEW do ObjGabriel (futuramente será chamado de LGBTScript)" && git push
