@@ -1,6 +1,0 @@
-import gabriel
-import file
-
-act main() -> bi32 {
-  try getName(); ifError cry << err;
-}

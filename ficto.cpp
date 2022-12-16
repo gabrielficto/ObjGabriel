@@ -27,82 +27,78 @@ int file_len = 0;
 struct
 {
     const regex LINE_COMMENT = regex("\/\/(.*)");
-    const regex GABRIEL_FILE = regex(".*[A-Za-z_0-9]\\.gabriel", std::regex_constants::basic);
+    const regex FICTO_FILE = regex(".*[A-Za-z_0-9]\\.fpp", std::regex_constants::basic);
     const regex LINE_COMMENT_ALT_RULE = regex("#(.*)");
     const regex FUNCTION_STATEMENT =
-        regex("act .*\\(\\) -> .* {", std::regex_constants::basic);
+        regex("fun .*\\(\\) -> .* {", std::regex_constants::basic);
     const regex FUNCTION_WITH_PARAMS_STATEMENT =
         regex(".*\\(.{1,}\\) {", std::regex_constants::basic);
-    const regex TRY_CATCH_STATEMENT = regex("try .* ifError .*");
-    const regex RETURN_STATEMENT = regex("getout .*");
+    const regex RETURN_STATEMENT = regex("ret .*");
     const regex INCLUDE_STATEMENT = regex("import .*");
-    const regex PRINT_STATEMENT = regex("cry << .*;");
-    const regex SCANF_STATEMENT = regex("get >> .*;");
-    const regex CLASS_DECLARATION = regex("closet .* (\\{)");
+    const regex PRINT_STATEMENT = regex("write << .*;");
+    const regex SCANF_STATEMENT = regex("read >> .*;");
+    const regex CLASS_DECLARATION = regex("class .* (\\{)");
     const regex VAR_DECL_STATEMENT = regex(".* \\: .* \\= .*", std::regex_constants::basic);
-} GabrielRules;
+} FictoRules;
 
 struct
 {
-    const string FUNCTION = "act";
+    const string FUNCTION = "fun";
     const string PRINT = "std::cout";
     const string SCANF = "std::cin";
     const string INCLUDE = "#include";
     const string IMPORT = "import";
     const string FICTOGEM = "fictogem";
     const string CPP_CLASS = "class";
-    const string CLASS = "closet";
-    const string INHERITS = "fucks";
+    const string CLASS = "class";
+    const string INHERITS = "childof";
     const string CPP_INHERITS = ": public ";
-    const string PUBLIC_ATTR = "--polyamorous";
+    const string PUBLIC_ATTR = "--publ";
     const string CPP_PUBLIC_ATTR = "public:";
-    const string PRIVATE_ATTR = "--closeted";
+    const string PRIVATE_ATTR = "--priv";
     const string CPP_PRIVATE_ATTR = "private:";
-    const string STRUCT = "sextoy";
+    const string STRUCT = "data";
     const string CPP_STRUCT = "struct";
     const string THIS_KEYWORD = "bitch";
     const string CPP_THIS_KEYWORD = "this";
-    const string CATCH_KEYWORD = "ifError";
-    const string CPP_CATCH_KEYWORD = "catch";
-    const string THROW_KEYWORD = "sabot";
-    const string CPP_THROW_KEYWORD = "throw";
-    const string TRY_KEYWORD = "try";
-} GabrielKeywords;
+} FictoKeywords;
 
-typedef struct GabrielFunctions
+typedef struct FictoFunctions
 {
     string return_type;
 } Function;
 
-typedef struct GabrielVariable
+typedef struct FictoVariable
 {
     string identifier;
     string type;
     string value;
 } Variable;
 
-typedef struct GabrielFunctionWithParams
+typedef struct FictoFunctionWithParams
 {
     string identifier;
     string type;
 } FunctionWithArgs;
 
-map<string, string> GabrielTypes;
+map<string, string> FictoTypes;
 
-void initializeGabrielTypes()
+void initializeFictoTypes()
 {
-    GabrielTypes.insert(pair<string, string>("bi32", "int"));
-    GabrielTypes.insert(pair<string, string>("gay32", "int"));
-    GabrielTypes.insert(pair<string, string>("bi64", "float"));
-    GabrielTypes.insert(pair<string, string>("gay64", "float"));
-    GabrielTypes.insert(pair<string, string>("bi", "bool"));
-    GabrielTypes.insert(pair<string, string>("label", "std::string"));
-    GabrielTypes.insert(pair<string, string>("ficto", "void"));
+    FictoTypes.insert(pair<string, string>("i32", "int"));
+    FictoTypes.insert(pair<string, string>("bi32", "int"));
+    FictoTypes.insert(pair<string, string>("i64", "float"));
+    FictoTypes.insert(pair<string, string>("bi64", "float"));
+    FictoTypes.insert(pair<string, string>("boo", "bool"));
+    FictoTypes.insert(pair<string, string>("str", "std::string"));
+    FictoTypes.insert(pair<string, string>("ficto", "void"));
+    FictoTypes.insert(pair<string, string>("ch", "char"));
+    FictoTypes.insert(pair<string, string>("doub", "double"));
 }
 
 string translateTypesToC(string _type)
 {
-    for (auto _ : GabrielTypes)
+    for (auto _ : FictoTypes)
     {
         if (_.first == _type)
             return _.second;
@@ -111,17 +107,17 @@ string translateTypesToC(string _type)
     return "unknown";
 }
 
-class GabrielLang
+class FictoLang
 {
 public:
     smatch match;
 
     bool checkIfIsComment(string statement)
     {
-        if (regex_search(statement, match, GabrielRules.LINE_COMMENT))
+        if (regex_search(statement, match, FictoRules.LINE_COMMENT))
             return true;
 
-        if (regex_search(statement, match, GabrielRules.LINE_COMMENT_ALT_RULE))
+        if (regex_search(statement, match, FictoRules.LINE_COMMENT_ALT_RULE))
             return true;
 
         return false;
@@ -129,46 +125,42 @@ public:
 
     bool ReturnStatement(string statement)
     {
-        return regex_search(statement, match, GabrielRules.RETURN_STATEMENT);
+        return regex_search(statement, match, FictoRules.RETURN_STATEMENT);
     }
 
     bool checkIfIsFunctionDeclaration(string statement)
     {
-        return regex_search(statement, match, GabrielRules.FUNCTION_STATEMENT);
+        return regex_search(statement, match, FictoRules.FUNCTION_STATEMENT);
     }
 
     bool checkIfIsFunctionWithParams(string statement)
     {
-        return regex_search(statement, match, GabrielRules.FUNCTION_WITH_PARAMS_STATEMENT);
+        return regex_search(statement, match, FictoRules.FUNCTION_WITH_PARAMS_STATEMENT);
     }
 
     bool isIncludeStatement(string statement)
     {
-        return regex_search(statement, match, GabrielRules.INCLUDE_STATEMENT);
+        return regex_search(statement, match, FictoRules.INCLUDE_STATEMENT);
     }
 
     bool isPrintf(string statement)
     {
-        return regex_search(statement, match, GabrielRules.PRINT_STATEMENT);
+        return regex_search(statement, match, FictoRules.PRINT_STATEMENT);
     }
 
     bool isScanf(string statement)
     {
-        return regex_search(statement, match, GabrielRules.SCANF_STATEMENT);
+        return regex_search(statement, match, FictoRules.SCANF_STATEMENT);
     }
 
     bool isVariableDecl(string statement)
     {
-        return regex_search(statement, match, GabrielRules.VAR_DECL_STATEMENT);
+        return regex_search(statement, match, FictoRules.VAR_DECL_STATEMENT);
     }
 
     bool isClassDeclaration(string statement)
     {
-        return regex_search(statement, match, GabrielRules.CLASS_DECLARATION);
-    }
-
-    bool isTryCatchStatement(string statement){
-        return regex_search(statement, match, GabrielRules.TRY_CATCH_STATEMENT);
+        return regex_search(statement, match, FictoRules.CLASS_DECLARATION);
     }
 
     void exec()
@@ -209,7 +201,7 @@ string importLibrary(string filename)
     }
     else
     {
-        cout << "ObjGabriel was unable to find the specified library!";
+        cout << "FictoC++ was unable to find the specified library!";
     }
 
     string joined;
@@ -222,10 +214,10 @@ string importLibrary(string filename)
     return joined;
 }
 
-string importGabrielSTDLibrary()
+string importfictoSTDLibrary()
 {
     fstream file;
-    file.open("./lang/std/gabrielstd.cpp", ios::in);
+    file.open("./lang/std/fictostd.cpp", ios::in);
 
     string lib_code[100];
     int len = 0;
@@ -242,7 +234,7 @@ string importGabrielSTDLibrary()
     }
     else
     {
-        cout << "ObjGabriel was unable to find the specified library!";
+        cout << "FictoC++ was unable to find the specified library!";
     }
 
     string joined;
@@ -282,7 +274,7 @@ void readFromFile(string filename)
 
 void parse()
 {
-    cout << "🛠️ Compilando ObjGabriel pra C++..." << endl;
+    cout << "🛠️ Compilando FictoC++ pra C++..." << endl;
 
     int line = 0;
 
@@ -300,25 +292,25 @@ int main(int argc, char *argv[])
 {
     smatch match;
 
-    initializeGabrielTypes();
+    initializeFictoTypes();
 
     input = argv[1];
 
-    if (regex_search(input, match, GabrielRules.GABRIEL_FILE))
+    if (regex_search(input, match, FictoRules.FICTO_FILE))
     {
         readFromFile(input);
     }
     else
-        cout << "🛑️ FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .GABRIEL EXTENSION!!!";
+        cout << "🛑️ FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .ficto EXTENSION!!!";
 
     return 0;
 }
 
 string parseLine(string statement)
 {
-    GabrielLang gabriel;
+    FictoLang ficto;
 
-    if (gabriel.checkIfIsComment(statement))
+    if (ficto.checkIfIsComment(statement))
         return "";
 
     return tokenizer(statement);
@@ -335,7 +327,7 @@ string tokenizer(string statement)
     FunctionWithArgs funarg;
     string joined;
 
-    GabrielLang gabriel;
+    FictoLang ficto;
 
     stringstream ssin(statement);
 
@@ -344,9 +336,9 @@ string tokenizer(string statement)
         return importFictoGem();
     }
 
-    if (statement == "import gabriel")
+    if (statement == "import ficto")
     {
-        return importGabrielSTDLibrary();
+        return importfictoSTDLibrary();
     }
 
     if (statement == "import file")
@@ -359,14 +351,14 @@ string tokenizer(string statement)
     statement_with_trim.erase(std::remove_if(statement_with_trim.begin(), statement_with_trim.end(), ::isspace),
                               statement_with_trim.end());
 
-    if (statement_with_trim == GabrielKeywords.PUBLIC_ATTR)
+    if (statement_with_trim == FictoKeywords.PUBLIC_ATTR)
     {
-        return GabrielKeywords.CPP_PUBLIC_ATTR;
+        return FictoKeywords.CPP_PUBLIC_ATTR;
     }
 
-    if (statement_with_trim == GabrielKeywords.PRIVATE_ATTR)
+    if (statement_with_trim == FictoKeywords.PRIVATE_ATTR)
     {
-        return GabrielKeywords.CPP_PRIVATE_ATTR;
+        return FictoKeywords.CPP_PRIVATE_ATTR;
     }
 
     int i = 0;
@@ -377,22 +369,22 @@ string tokenizer(string statement)
         ++i;
     }
 
-    if (tokens[0] == GabrielKeywords.STRUCT)
+    if (tokens[0] == FictoKeywords.STRUCT)
     {
-        tokens[0] = GabrielKeywords.CPP_STRUCT;
+        tokens[0] = FictoKeywords.CPP_STRUCT;
     }
 
-    if (gabriel.isPrintf(statement))
+    if (ficto.isPrintf(statement))
     {
-        tokens[0] = GabrielKeywords.PRINT;
+        tokens[0] = FictoKeywords.PRINT;
     }
 
-    if (gabriel.isScanf(statement))
+    if (ficto.isScanf(statement))
     {
-        tokens[0] = GabrielKeywords.SCANF;
+        tokens[0] = FictoKeywords.SCANF;
     }
 
-    if (gabriel.isVariableDecl(statement))
+    if (ficto.isVariableDecl(statement))
     {
         var.identifier = tokens[0];
         var.type = tokens[2];
@@ -414,31 +406,13 @@ string tokenizer(string statement)
         return translateTypesToC(var.type) + " " + var.identifier + " = " + var.value;
     }
 
-    /*if(gabriel.isTryCatchStatement(statement)){
-        string trycatchstatement;
-
-        for(int token = 0; token < 50; token++){
-            if(tokens[token] == GabrielKeywords.TRY_KEYWORD){
-                tokens[token] == (GabrielKeywords.TRY_KEYWORD + " { ");
-            }
-
-            if(tokens[token] == GabrielKeywords.CATCH_KEYWORD){
-                tokens[token] == " } " + GabrielKeywords.CPP_CATCH_KEYWORD + " (std::string err) { ";
-            }
-
-            trycatchstatement += tokens[token];
-        }
-
-        return trycatchstatement + " } ";
-    }*/
-
-    if (gabriel.checkIfIsFunctionDeclaration(statement))
+    if (ficto.checkIfIsFunctionDeclaration(statement))
     {
         isFunction = true;
 
         for (int token = 0; token < 50; token++)
         {
-            if (tokens[token] == GabrielKeywords.FUNCTION)
+            if (tokens[token] == FictoKeywords.FUNCTION)
                 tokens[token] = "";
 
             if (tokens[token] != "" && tokens[token + 1] == ":" && tokens[token] != "")
@@ -461,22 +435,22 @@ string tokenizer(string statement)
         }
     }
 
-    if (gabriel.isClassDeclaration(statement))
+    if (ficto.isClassDeclaration(statement))
     {
         bool inheritsFromAnotherClass;
 
         for (int token = 0; token < 50; token++)
         {
-            if (tokens[token] == GabrielKeywords.INHERITS)
+            if (tokens[token] == FictoKeywords.INHERITS)
             {
-                tokens[token] = GabrielKeywords.CPP_INHERITS;
+                tokens[token] = FictoKeywords.CPP_INHERITS;
                 inheritsFromAnotherClass = true;
                 break;
             }
         }
 
-        if (tokens[0] == GabrielKeywords.CLASS)
-            tokens[0] = GabrielKeywords.CPP_CLASS;
+        if (tokens[0] == FictoKeywords.CLASS)
+            tokens[0] = FictoKeywords.CPP_CLASS;
 
         if (!inheritsFromAnotherClass)
             return tokens[0] + " " + tokens[1] + (tokens[2] != "" ? tokens[2] : "");
@@ -484,11 +458,11 @@ string tokenizer(string statement)
             return tokens[0] + " " + tokens[1] + tokens[2] + tokens[3] + (tokens[4] == "{" ? tokens[4] : "");
     }
 
-    if (gabriel.isIncludeStatement(statement))
+    if (ficto.isIncludeStatement(statement))
     {
         if (tokens[0] != "")
         {
-            tokens[0] = GabrielKeywords.INCLUDE;
+            tokens[0] = FictoKeywords.INCLUDE;
             tokens[1] = " <" + tokens[1] + ">";
         }
         else
@@ -499,12 +473,12 @@ string tokenizer(string statement)
 
     for (i = 0; i < 50; i++)
     {
-        if (gabriel.ReturnStatement(statement))
-            if (tokens[i] == "getout")
+        if (ficto.ReturnStatement(statement))
+            if (tokens[i] == "ret")
             {
                 tokens[i] = "return";
             }
-            else if (tokens[i] == "getout;")
+            else if (tokens[i] == "ret;")
                 tokens[i] = "return;";
 
         if (tokens[i] == "elf")
@@ -524,7 +498,7 @@ string tokenizer(string statement)
 
 void compileToCpp()
 {
-    GabrielLang gabriel;
+    FictoLang ficto;
 
     fstream file;
     file.open("program.cpp", ios::out);
@@ -538,5 +512,5 @@ void compileToCpp()
     }
 
     file.close();
-    gabriel.exec();
+    ficto.exec();
 }
