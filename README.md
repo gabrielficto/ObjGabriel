@@ -1,6 +1,8 @@
 # ObjGabriel
 
-<img src="OBJGABRIEL.png">
+<center><img src="fictoc++.png"></center>
+
+
 Linguagem de programação sem sentido nem finalidade baseada em C criada por mim e pelo @Redwars22
 
 O ObjGabriel (futuramente será renomeado para LGBTScript) é uma linguagem de programação sem sentido nem finalidade baseada em C++ e orientada a objetos criada por mim e pelo meu amigo @Redwars22. Seu intuito é basicamente nenhum, só ter uma versão do C++ com termos LGBT no lugar das palavras-chaves "normais" pra eu e o meu amigo usarmos nos nossos programas que seriam feitos em C++. O código em LGBTScript é transpilado para C++ e em seguida compilado com o g++ para gerar executáveis Linux ou .exe que podem ser executados no Windows. Ele é interoperável com o C++, então você pode usar todas as suas bibliotecas e inclusive usar código C++ intercambiavelmente ao longo do código em LGBTScript.

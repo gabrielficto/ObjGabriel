@@ -1,1 +1,1 @@
-git add . && git commit -m "atualizando o código e modificando para o FictoC++" && git push
+git add . && git commit -m "atualizando README" && git push
