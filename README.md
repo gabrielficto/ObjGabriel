@@ -1,9 +1,10 @@
 # FictoC++
 
-<img src="FictoCPP.png">
-Linguagem de programação sem sentido nem finalidade baseada em C criada por mim e pelo @Redwars22
+<img src="assets/fictoc++.png">
 
-O FictoC++ (futuramente será renomeado para LGBTScript) é uma linguagem de programação sem sentido nem finalidade baseada em C++ e orientada a objetos criada por mim e pelo meu amigo @Redwars22. Seu intuito é basicamente nenhum, só ter uma versão do C++ com termos LGBT no lugar das palavras-chaves "normais" pra eu e o meu amigo usarmos nos nossos programas que seriam feitos em C++. O código em LGBTScript é transpilado para C++ e em seguida compilado com o g++ para gerar executáveis Linux ou .exe que podem ser executados no Windows. Ele é interoperável com o C++, então você pode usar todas as suas bibliotecas e inclusive usar código C++ intercambiavelmente ao longo do código em LGBTScript.
+O FictoC++ é fork do ObjGabriel, um projeto de linguagem de programação para ser sucessora do C++ criado pelo @Redwars22 e pelo @gabrielficto. Ele possui uma sintaxe mais moderna, seguindo as tendências de linguagens como Rust, Kotlin e TypeScript e ao mesmo tempo sendo familiar ao bom e velho C/C++. O código em LGBTScript é transpilado para C++ e em seguida compilado com o g++ para gerar executáveis Linux ou .exe que podem ser executados no Windows. Ele é interoperável com o C++, então você pode usar todas as suas bibliotecas e inclusive usar código C++ intercambiavelmente ao longo do código em LGBTScript.
+
+<img src="assets/fictocpp_example.png">
 
 ### SOBRE O PROJETO
 

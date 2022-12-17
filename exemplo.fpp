@@ -15,9 +15,8 @@ class Numbers {
 fun Conditions() -> ficto {
   greetUserAgain : boo = true;
 
-  if(greetUserAgain){
+  if(greetUserAgain)
     Ficto::println("Olá, novamente!");
-  }
 }
 
 fun main() -> bi32 {
@@ -27,11 +26,8 @@ fun main() -> bi32 {
   read >> name;
   Ficto::println("Olá, " + name + "!");
   Ficto::print("Números no array: ");
-
   Numbers num;
   num.getNumbers();
-
   Conditions();
-
   ret 0;
 }

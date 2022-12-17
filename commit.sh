@@ -1,1 +1,1 @@
-git add . && git commit -m "atualizando código fonte do transpilador do FictoC++" && git push
+git add . && git commit -m "atualizando doc e marketing do FictoC++" && git push
