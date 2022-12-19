@@ -83,29 +83,16 @@ public:
     }*/
 };
 
-const int x = 0;
-int array[10] = {1,7,13,19,25,31,37,43,49,55};
-class Numbers{
-public:
-void getNumbers() { 
-int i = 0;
-for(i; i < 10; i++) 
-Ficto::print(array[i]); 
-} 
-}; 
-void Conditions() { 
-bool greetUserAgain = true;
-if(greetUserAgain) 
-Ficto::println("Olá, novamente!"); 
-} 
+const float REM_DEFAULT_SIZE = 16;
 int main() { 
-std::string name = "";
-Ficto::print("Olá, insira seu nome: "); 
-std::cin >> name; 
-Ficto::println("Olá, " + name + "!"); 
-Ficto::print("Números no array: "); 
-Numbers num; 
-num.getNumbers(); 
-Conditions(); 
+Ficto::clear(); 
+int rem = 0;
+float total = 0.0;
+Ficto::print("Insira o valor em PX: "); 
+std::cin >> rem; 
+total = rem/REM_DEFAULT_SIZE; 
+Ficto::print("Valor em REM: "); 
+Ficto::print(total); 
+Ficto::print("rem"); 
 return 0; 
 } 
