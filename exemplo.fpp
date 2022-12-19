@@ -1,5 +1,7 @@
 import std
 
+stable x : bi32 = 0;
+
 array[10] : bi32 = {1, 7, 13, 19, 25, 31, 37, 43, 49, 55};
 
 class Numbers {

@@ -83,6 +83,7 @@ public:
     }*/
 };
 
+const int x = 0;
 int array[10] = {1,7,13,19,25,31,37,43,49,55};
 class Numbers{
 public:
@@ -92,6 +93,11 @@ for(i; i < 10; i++)
 Ficto::print(array[i]); 
 } 
 }; 
+void Conditions() { 
+bool greetUserAgain = true;
+if(greetUserAgain) 
+Ficto::println("Olá, novamente!"); 
+} 
 int main() { 
 std::string name = "";
 Ficto::print("Olá, insira seu nome: "); 
@@ -100,5 +106,6 @@ Ficto::println("Olá, " + name + "!");
 Ficto::print("Números no array: "); 
 Numbers num; 
 num.getNumbers(); 
+Conditions(); 
 return 0; 
 } 

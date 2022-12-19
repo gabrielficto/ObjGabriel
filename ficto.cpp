@@ -39,6 +39,7 @@ struct
     const regex SCANF_STATEMENT = regex("read >> .*;");
     const regex CLASS_DECLARATION = regex("class .* (\\{)");
     const regex VAR_DECL_STATEMENT = regex(".* \\: .* \\= .*", std::regex_constants::basic);
+    const regex CONST_DECL_STATEMENT = regex("stable .* \\: .* \\= .*", std::regex_constants::basic);
 } FictoRules;
 
 struct
@@ -61,6 +62,8 @@ struct
     const string CPP_STRUCT = "struct";
     const string THIS_KEYWORD = "bitch";
     const string CPP_THIS_KEYWORD = "this";
+    const string CONST = "stable";
+    const string CPP_CONST = "const";
 } FictoKeywords;
 
 typedef struct FictoFunctions
@@ -156,6 +159,10 @@ public:
     bool isVariableDecl(string statement)
     {
         return regex_search(statement, match, FictoRules.VAR_DECL_STATEMENT);
+    }
+
+    bool isConstDecl(string statement){
+        return regex_search(statement, match, FictoRules.CONST_DECL_STATEMENT);
     }
 
     bool isClassDeclaration(string statement)
@@ -382,6 +389,20 @@ string tokenizer(string statement)
     if (ficto.isScanf(statement))
     {
         tokens[0] = FictoKeywords.SCANF;
+    }
+
+    if (ficto.isConstDecl(statement))
+    {
+
+        var.identifier = tokens[1];
+        var.type = tokens[3];
+
+        for (int token = 5; token < 50; token++)
+        {
+            var.value += tokens[token];
+        }
+
+        return FictoKeywords.CPP_CONST + " " +  translateTypesToC(var.type) + " " + var.identifier + " = " + var.value;
     }
 
     if (ficto.isVariableDecl(statement))
