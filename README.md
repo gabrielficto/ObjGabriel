@@ -10,19 +10,17 @@ O FictoC++ é fork do ObjGabriel, um projeto de linguagem de programação para 
 
 - Descrição curta: Uma linguagem orientada a objetos interoperável com C++, derivada do ObjGabriel
 - Categoria: Linguagens (inúteis) de programação
-- Site oficial: NÃO TEM PORRA!!!
+- Site oficial: [FictoC++](https://redwars22.github.io/andrewnation/fictocpp/)
 - Status do projeto: Em beta
 
 ### DESENVOLVIMENTO
 
 - Linguagem de programação: C++ e ObjGabriel
-- Repositório:
+- Repositório: [https://github.com/Redwars22/fictocpp](https://github.com/Redwars22/fictocpp)
 
 ### LANÇAMENTOS
 
-- Download (versão beta):
-
-[📚️ LER MANUAL DA LINGUAGEM]
+- Download (versão beta): [https://github.com/Redwars22/fictocpp/tags](https://github.com/Redwars22/fictocpp/tags)
 
 # Como usar
 
