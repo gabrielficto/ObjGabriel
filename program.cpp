@@ -83,16 +83,47 @@ public:
     }*/
 };
 
-const float REM_DEFAULT_SIZE = 16;
+class FileHandler {
+    std::string filename = "";
+    public:
+        FileHandler(std::string filename) {
+            this -> filename = filename;
+        }
+    void write(std::string content) {
+        std::ofstream File(this -> filename);
+        File << content;
+        File.close();
+    }
+    std::string readFirstLine() {
+        std::ifstream File(this -> filename);
+        std::string content = "";
+        getline(File, content);
+        File.close();
+        return content;
+    }
+    std::string read() {
+        std::ifstream file(this -> filename.c_str());
+        std::string line = "", content;
+        while (getline(file, line))
+            content += line + "\n";
+        file.close();
+        return content;
+    }
+};
+
+std::string filename = "";
+std::string content = "";
+void writeFile() { 
+FileHandler file(filename); 
+file.write(content); 
+std::cout << endl; 
+std::cout << "O arquivo foi criado com sucesso!"; 
+} 
 int main() { 
-Ficto::clear(); 
-int rem = 0;
-float total = 0.0;
-Ficto::print("Insira o valor em PX: "); 
-std::cin >> rem; 
-total = rem/REM_DEFAULT_SIZE; 
-Ficto::print("Valor em REM: "); 
-Ficto::print(total); 
-Ficto::print("rem"); 
+std::cout << "Insira o nome do arquivo: "; 
+std::cin >> filename; 
+std::cout << "Insira o conteúdo: "; 
+std::cin >> content; 
+writeFile(); 
 return 0; 
 } 

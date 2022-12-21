@@ -1,6 +1,7 @@
 /.vscode
 *.zip
 *.exe
+*.txt
 /releases
 
 gabriel
