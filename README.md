@@ -44,3 +44,92 @@ Exemplo de programa Hello World:
 >    ret 0;
 > }
 > ```
+
+# Diferenças entre FictoC++ e C++
+
+Eu e o Gabriel até faríamos uma documentação explicando sobre o FictoC++, mas como ele é muito semelhante ao C++ e supondo que você já o domine, decidimos explanar aqui somente as diferenças entre os dois.
+
+1-A declaração de variáveis coloca o tipo depois do nome delas, separado por dois pontos. Exemplo:
+
+```cpp
+numero1 : bi32 = 16;
+nome : str = "Hello, world!"
+numero2 : bi64 = 16.7;
+numero3 : doub = 9.9187171516781;
+caractere : ch = 'a';
+```
+
+Tabela de equivalência de tipos:
+
+| FictoC++ | C++ |
+| --- | --- |
+| bi32/i32 | int |
+| bi64/i64 | float |
+| str | string |
+| doub | double |
+| boo | boolean |
+| ch | char |
+| ficto | void |
+
+---
+
+2-As constantes são declaradas de forma parecida, porém com a palavra-chave *stable*:
+
+```cpp
+stable ARR_SIZE : bi32 = 12;
+array[ARR_SIZE] : bi32 = {};
+```
+
+---
+
+3-As funções são identificadas pela palavra-chave *fun* e o tipo de retorno é colocado após os parênteses. Essa sintaxe é semelhante à do Carbon, Swift e TypeScript.
+
+```cpp
+fun main() -> bi32 {
+	ret 0;
+}
+```
+
+---
+
+4-O retorno das funções que não são do tipo *ficto* (equivalente a *void*) é feito com a palavra-chave *ret*, versão abreviada de return.
+
+```cpp
+fun sumTwoNumbers() -> bi64 {
+	ret 2.3 + 2.1;
+}
+```
+
+---
+
+5-Os argumentos das funções em FictoC++ são passados entre parênteses. Eles devem ser tipados e separados por espaços (ainda não descobrimos como separar os tokens que estão entre vírgulas durante a tokenização, então por enquanto serão separados por espaços).
+
+```cpp
+fun subtractTwoNumbers(x : bi32 y : bi32) -> bi32 {
+	ret x + y;
+}
+```
+
+---
+
+6-As estruturas de controle de lógica e repetição são iguais às do C++, mas no caso do ****for**** a variável deve ser declarada fora do bloco.
+
+---
+
+7-É recomendável começar qualquer programa em FictoC++ com `import std`, que lhe dá acesso às funções da classe Ficto e importa automaticamente algumas bibliotecas C++ que são usadas frequentemente, como iostream, namespace std, etc. Falando no *******import,******* você pode importar arquivos, headers e bibliotecas do C++ com ele. Ele equivale ao `#include`. No FictoC++ optamos pelo `import`porque é a palavra-chave mais usual nas linguagens de programação modernas.
+
+---
+
+8-A parte de orientação a objetos funciona de forma quase idêntica, exceto por uma coisa: os atributos públicos e privados, respectivamente, usam as palavras-chave `--publ` e `--priv`, e ficam agrupados dentro deles. 
+
+```cpp
+class Human {
+	--priv
+		dna : ch = "🧬";
+
+	--publ
+		fun getDNA() -> ch {
+			return this->dna;
+		}
+}
+```
