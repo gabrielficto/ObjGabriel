@@ -2,7 +2,7 @@
 
 <img src="assets/fictoc++.png">
 
-O FictoC++ é fork do ObjGabriel, um projeto de linguagem de programação para ser sucessora do C++ criado pelo @Redwars22 e pelo @gabrielficto. Ele possui uma sintaxe mais moderna, seguindo as tendências de linguagens como Rust, Kotlin e TypeScript e ao mesmo tempo sendo familiar ao bom e velho C/C++. O código em FictoC++ é transpilado para C++ e em seguida compilado com o g++ para gerar executáveis Linux ou .exe que podem ser executados no Windows. Ele é interoperável com o C++, então você pode usar todas as suas bibliotecas e inclusive usar código C++ intercambiavelmente ao longo do código em FictoC++.
+O FictoC++ é fork do ObjGabriel, um projeto de linguagem de programação para ser sucessora do C++ criado pelo @Redwars22 e pelo @gabrielficto. Ele possui uma sintaxe mais moderna, seguindo as tendências de linguagens como Rust, Kotlin e TypeScript e ao mesmo tempo sendo familiar ao bom e velho C/C++. O código em FictoC++ é transpilado para C++ e em seguida compilado com o g++ para gerar executáveis Linux ou .exe que podem ser executados no Windows. Ele é interoperável com o C++, então você pode usar todas as suas bibliotecas e inclusive usar código C++ intercambiavelmente ao longo do código em FictoC++. Basicamente, qualquer c
 
 <img src="assets/fictocpp_example.png">
 
