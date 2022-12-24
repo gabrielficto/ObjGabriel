@@ -27,12 +27,12 @@ O FictoC++ é fork do ObjGabriel, um projeto de linguagem de programação para 
 No Linux, as instruções são as seguintes:
 
 > ```bash
-> ./ficto nome_do_arquivo.fpp
+> ./ficto nome_do_arquivo.fpp -cpp arquivo_de_destino
 > ```
 
-No Windows, só executar o `ficto.exe` pelo CMD e passar como argumento o arquivo ou o caminho até o arquivo `.fpp`. Também é necessário ter o compilador G++ instalado.
+No Windows, só executar o `ficto.exe` pelo CMD e passar como argumento o arquivo ou o caminho até o arquivo `.fpp`, o argumento `-cpp` e em seguida o nome do arquivo de destino. Também é necessário ter o compilador G++ instalado.
 
-Só criar um arquivo com a extensão .fpp, ir até a pasta onde tá o executável do FictoC++, e digitar ./ficto no terminal seguido pelo caminho até o arquivo .fpp que você criou. Se tudo estiver ok, ele vai compilar para C++ usando o g++ e daí vai executar automaticamente o seu programa e gerar um executável dele.
+Só criar um arquivo com a extensão .fpp, ir até a pasta onde tá o executável do FictoC++, e digitar ./ficto no terminal seguido pelo caminho até o arquivo .fpp que você criou. Se tudo estiver ok, ele vai compilar para C++ usando o g++ e daí gerar um executável dele, que será salvo na pasta `release`.
 
 Exemplo de programa Hello World:
 

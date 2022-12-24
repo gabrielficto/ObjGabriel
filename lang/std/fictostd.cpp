@@ -50,6 +50,11 @@ public:
         cout << arg << endl;
     }
 
+    static void println()
+    {
+        cout << endl;
+    }
+
     static void clear()
     {
 #ifdef _WIN32
@@ -58,6 +63,36 @@ public:
 #endif
 
         system("clear");
+    }
+
+    static int readBi32(){
+        int val;
+        cin >> val;
+        return val;
+    }
+
+    static float readBi64(){
+        float val;
+        cin >> val;
+        return val;
+    }
+
+    static double readDoub(){
+        double val;
+        cin >> val;
+        return val;
+    }
+
+    static string readStr(){
+        string val;
+        cin >> val;
+        return val;
+    }
+
+    static char readCh(){
+        char val;
+        cin >> val;
+        return val;
     }
 };
 

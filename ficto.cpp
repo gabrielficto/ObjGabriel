@@ -19,9 +19,10 @@
 
 using namespace std;
 
-string source[1000];
-string output[1000];
+string source[32000];
+string output[32000];
 string input;
+string out_filename;
 int file_len = 0;
 
 struct
@@ -172,14 +173,14 @@ public:
 
     void exec()
     {
+
 #ifdef _WIN32
-        system("g++ -g output.cpp -o program.exe");
+        system(("g++ -g program.cpp -o release/" + out_filename + ".exe").c_str());
         system("program.exe");
         return;
 #endif
 
-        system("g++ -g program.cpp -o program");
-        system("./program");
+        system(("g++ -g program.cpp -o release/" + out_filename + " && rm program.cpp").c_str());
     }
 };
 
@@ -193,7 +194,7 @@ string importLibrary(string filename)
     fstream file;
     file.open("./lang/" + filename + ".cpp", ios::in);
 
-    string lib_code[100];
+    string lib_code[500];
     int len = 0;
 
     if (file)
@@ -226,7 +227,7 @@ string importfictoSTDLibrary()
     fstream file;
     file.open("./lang/std/fictostd.cpp", ios::in);
 
-    string lib_code[100];
+    string lib_code[500];
     int len = 0;
 
     if (file)
@@ -281,7 +282,7 @@ void readFromFile(string filename)
 
 void parse()
 {
-    cout << "🛠️ Compilando FictoC++ pra C++..." << endl;
+    cout << endl << "🛠️ Compiling FictoC++ to C++..." << endl;
 
     int line = 0;
 
@@ -301,15 +302,23 @@ int main(int argc, char *argv[])
 
     initializeFictoTypes();
 
-    input = argv[1];
-
-    if (regex_search(input, match, FictoRules.FICTO_FILE))
+    if(argv[1])
     {
-        readFromFile(input);
+        if(argv[2]){
+            cout << argv[2];
+            if(argv[3])
+                input = argv[1];
+                out_filename = argv[3];
+                if (regex_search(input, match, FictoRules.FICTO_FILE))
+                {
+                    readFromFile(input);
+                }
+        }
+        else {
+            cout << "🛑️ FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .fpp EXTENSION!!!" << endl;
+            cout << "Also consider if you have forgotten to provide the output filename!";
+        }
     }
-    else
-        cout << "🛑️ FATAL: NO INPUT FILE PROVIDED TO COMPILE OR IT DOESN'T END WITH THE .fpp EXTENSION!!!";
-
     return 0;
 }
 
@@ -488,7 +497,7 @@ string tokenizer(string statement)
         }
         else
         {
-            throw "Hm, it looks like you've missed the argument of the import statement";
+            throw "⚠️ Hm, it looks like you've missed the argument of the import statement";
         }
     }
 
@@ -524,8 +533,9 @@ void compileToCpp()
     fstream file;
     file.open("program.cpp", ios::out);
 
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < file_len; i++)
     {
+        //cout << output[i] << endl;
         if (output[i] != "")
         {
             file << output[i] << endl;
