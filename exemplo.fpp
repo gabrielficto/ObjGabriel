@@ -1,4 +1,5 @@
 import std
+import fictostring
 
 stable x : bi32 = 0;
 
@@ -19,6 +20,9 @@ fun Conditions() -> ficto {
 
   if(greetUserAgain)
     Ficto::println("Olá, novamente!");
+
+  if(FictoStr.equals("abc", "abc"))
+    Ficto::println("As strings são iguais!");
 }
 
 fun main() -> bi32 {
@@ -27,7 +31,10 @@ fun main() -> bi32 {
   Ficto::print("Olá, insira seu nome: ");
   read >> name;
   Ficto::println("Olá, " + name + "!");
-  Ficto::print("Números no array: ");
+  Ficto::println("Números no array: ");
+  Ficto::println("Teu nome tem ");
+  Ficto::print(FictoStr.getLength(name));
+  Ficto::println(" caracteres");
   Numbers num;
   num.getNumbers();
   Conditions();

@@ -24,6 +24,7 @@ string output[32000];
 string input;
 string out_filename;
 int file_len = 0;
+string transpil_mode;
 
 struct
 {
@@ -36,6 +37,7 @@ struct
         regex(".*\\(.{1,}\\) {", std::regex_constants::basic);
     const regex RETURN_STATEMENT = regex("ret .*");
     const regex INCLUDE_STATEMENT = regex("import .*");
+    //const regex HEADERF_IMPORT = regex("import .h");
     const regex PRINT_STATEMENT = regex("write << .*;");
     const regex SCANF_STATEMENT = regex("read >> .*;");
     const regex CLASS_DECLARATION = regex("class .* (\\{)");
@@ -180,7 +182,10 @@ public:
         return;
 #endif
 
-        system(("g++ -g program.cpp -o release/" + out_filename + " && rm program.cpp").c_str());
+        system(
+            ("g++ -g program.cpp -o release/" + 
+            out_filename + (transpil_mode == "-lib" ? "" : "&& rm program.cpp")).c_str()
+        );
     }
 };
 
@@ -305,7 +310,7 @@ int main(int argc, char *argv[])
     if(argv[1])
     {
         if(argv[2]){
-            cout << argv[2];
+            transpil_mode = argv[2];
             if(argv[3])
                 input = argv[1];
                 out_filename = argv[3];
@@ -360,6 +365,11 @@ string tokenizer(string statement)
     if (statement == "import file")
     {
         return importLibrary("file/file");
+    }
+
+    if (statement == "import fictostring")
+    {
+        return importLibrary("string/string");
     }
 
     string statement_with_trim = statement;

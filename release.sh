@@ -1,1 +1,1 @@
-sh build.sh && sh commit.sh && zip -r ../releases/fictolang_v0.9_release_preview.zip .
+sh build.sh && sh commit.sh && zip -r ../releases/fictolang_v0.10_release_preview.zip .

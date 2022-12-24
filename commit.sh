@@ -1,1 +1,1 @@
-git add . && git commit -m "adicionando suporte à declaração de constantes em FictoC++" && git push
+git add . && git commit -m "adicionando biblioteca de string" && git push
