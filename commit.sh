@@ -1,1 +1,1 @@
-git add . && git commit -m "adicionando biblioteca de string" && git push
+git add . && git commit -m "adicionando mais exemplos" && git push
