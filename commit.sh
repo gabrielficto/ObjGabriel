@@ -1,1 +1,1 @@
-git add . && git commit -m "adicionando mais exemplos" && git push
+git add . && git commit -m "começando a trabalhar no assistente do Fictozard e alterando logo da linguagem" && git push
