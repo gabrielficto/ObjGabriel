@@ -541,6 +541,12 @@ void compileToCpp()
     FictoLang ficto;
 
     fstream file;
+
+    if(transpil_mode == "-arduino") {
+        cout << "Arduino support not implemented";
+        return;
+    }
+    
     file.open("program.cpp", ios::out);
 
     for (int i = 0; i < file_len; i++)
