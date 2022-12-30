@@ -13,6 +13,14 @@ class FictoString {
         fun equals( _str1 : str _str2 : str ) -> boo {
             return (_str1 == _str2);
         }
+
+        fun find( text : str query : str ) -> bi32 {
+            ret text.find(query);
+        }
+
+        fun replace( orig : str repl : str replWith : str ) -> str {
+            ret orig.replace(orig.find(repl), repl.length(), replWith);
+        }
 };
 
 //fun main() -> bi32 {
