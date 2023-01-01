@@ -1,6 +1,0 @@
-import gabriel
-
-act main() -> bi32 {
-    Gabriel::print("Hello world!");
-    getout 0;
-}

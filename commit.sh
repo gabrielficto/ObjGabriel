@@ -1,1 +1,1 @@
-git add . && git commit -m "atualizando documentação do ObjGabriel (futuramente será chamado de LGBTScript)" && git push
+git add . && git commit -m "começando a trabalhar no assistente do Fictozard e alterando logo da linguagem" && git push

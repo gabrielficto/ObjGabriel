@@ -1,7 +1,9 @@
 /.vscode
 *.zip
 *.exe
+*.txt
 /releases
+/lib
 
 gabriel
 program
@@ -9,3 +11,7 @@ program.cpp
 example
 exemplo.gabriel
 file.txt
+ficto
+password
+test.fpp
+test
