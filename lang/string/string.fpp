@@ -23,8 +23,8 @@ class FictoString {
         }
 };
 
-//fun main() -> bi32 {
-//    ret 0;
-//}
-
 FictoString FictoStr;
+
+fun main() -> bi32 {
+    ret 0;
+}

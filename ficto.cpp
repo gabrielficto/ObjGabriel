@@ -183,8 +183,10 @@ public:
 #endif
 
         system(
-            ("g++ -g program.cpp -o release/" + 
-            out_filename + (transpil_mode == "-lib" ? "" : "&& rm program.cpp")).c_str()
+            (std::string("g++ -g program.cpp -o ") + 
+                (transpil_mode == "-lib" ? "lib/" : "release/") + 
+                out_filename + (transpil_mode == "-lib" ? "" : "&& rm program.cpp")
+            ).c_str()
         );
     }
 };
@@ -370,6 +372,11 @@ string tokenizer(string statement)
     if (statement == "import fictostring")
     {
         return importLibrary("string/string");
+    }
+
+    if (statement == "import fictoregex")
+    {
+        return importLibrary("fictoregex/regex");
     }
 
     string statement_with_trim = statement;

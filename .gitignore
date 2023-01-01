@@ -3,6 +3,7 @@
 *.exe
 *.txt
 /releases
+/lib
 
 gabriel
 program
@@ -12,3 +13,5 @@ exemplo.gabriel
 file.txt
 ficto
 password
+test.fpp
+test
